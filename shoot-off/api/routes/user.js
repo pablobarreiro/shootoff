@@ -1,11 +1,11 @@
 const express = require("express") ;
 const userRouter = express.Router() ;
-const { User } = require("../models")
+const { Users } = require("../models")
 const passport = require("passport")
 
 
-userRouter.get("/register", (req, res) => {
-    User.create(req.body).then((user) => res.status(201).send(user))
+userRouter.post("/register", (req, res) => {
+    Users.create(req.body).then((user) => res.status(201).send(user))
 });
 
 userRouter.post("/login", passport.authenticate("local"), (req, res) => {
