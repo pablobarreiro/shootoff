@@ -1,42 +1,52 @@
 const sequelize = require("sequelize")
 const db = require ("../db")
+const bcrypt = require ('bcrypt')
 
 class Users extends sequelize.Model {
+    hashPassword(password,salt) {
+        return bcrypt.hashSync(password, salt)
+    }
+
+    validatePassword(password) {
+        return this.password === this.hashPassword(password,this.salt)
+    }
 }
+
 Users.init({
-    nombre: {
+    user_name: {
         type: sequelize.STRING,
         allownull: false
     },
     email: {
         type: sequelize.STRING,
+        unique: true,
         validate:{
             isEmail: true
         },   
     },
-    passsword: {
+    password: {
         type: sequelize.STRING,
         allownull: false
     },
     salt: {
         type: sequelize.STRING,
     },
-    telefono: {
+    phone: {
         type: sequelize.INTEGER,
     },
-    calle: {
+    street: {
         type: sequelize.STRING
     },
-    numero: {
+    street_number: {
         type: sequelize.INTEGER
     },
-    ciudad: {
+    city: {
         type: sequelize.STRING
     },
-    codigoPostal: {
+    postal_code: {
         type: sequelize.INTEGER
     },
-    pais: {
+    country: {
         type: sequelize.INTEGER
     },
     admin: {
@@ -44,5 +54,17 @@ Users.init({
     },
 
 }, {sequelize:db, modelName:"users"})
+
+Users.addHook('beforeCreate',(user)=>{
+    if(!user.password.length) {
+        user.password = null
+        return
+    }
+    return bcrypt.genSalt(16).then((cryptedSalt)=>{
+        user.salt = cryptedSalt
+        user.password = user.hashPassword(user.password,user.salt)
+    })
+    .catch(err=>console.log(err))
+    })
 
 module.exports = Users
