@@ -24,7 +24,7 @@ Users.init({
             isEmail: true
         },   
     },
-    passsword: {
+    password: {
         type: sequelize.STRING,
         allownull: false
     },
