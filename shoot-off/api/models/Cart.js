@@ -14,6 +14,8 @@ Cart.init({
     },
     quantity: {
         type: sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1
     },
 }, {sequelize:db, modelName:"carts"})
 

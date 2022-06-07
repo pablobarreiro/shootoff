@@ -14,6 +14,7 @@ Sales.init({
     },
     quantity: {
         type: sequelize.INTEGER,
+        allowNull: false
     },
     date: {
         type: sequelize.DATE,
