@@ -1,30 +1,38 @@
-const express = require("express") ;
-const userRouter = express.Router() ;
-const { User } = require("../models")
-const passport = require("passport")
+const express = require("express");
+const productRouter = express.Router();
+const { Products } = require("../models");
 
-
-userRouter.get("/register", (req, res) => {
-    User.create(req.body).then((user) => res.status(201).send(user))
+productRouter.get("/", (req, res) => {
+  Products.findAll()
+    .then((products) => {
+      res.status(200).send(products);
+    })
+    .catch((err) => console.log(err));
 });
 
-userRouter.post("/login", passport.authenticate("local"), (req, res) => {
-    res.send(req.user)
+productRouter.get("/:id", (req, res) => {
+  Products.findByPk(req.params.id)
+    .then((product) => res.status(200).send(product))
+    .catch((err) => console.log(err));
 });
 
-userRouter.post("/logout", (req, res) => {
-    req.logOut();
-    res.sendStatus(200);
-})
+productRouter.post("/", (req, res) => {
+  Products.create(req.body)
+    .then((product) => {
+      res.status(201).send(product);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
-userRouter.get("/me", (req, res) => {
-    if(!req.user){
-        return res.sendStatus(401);
-    }
-})
+productRouter.put("/:id", (req, res) => {
+  Products.update(req.body, {
+    where: { id: req.params.id },
+    returning: true,
+  }).then((product) => {
+    res.status(200).send(product);
+  });
+});
 
-
-
-
-
-module.exports = userRouter ;
+module.exports = productRouter;
