@@ -1,0 +1,13 @@
+.btn.footer{
+    padding: 6px 10px;
+    border-radius: 50%;
+}
+.icon{
+    width: 100%;
+}
+.card-header{
+display: flex;
+}
+.me-text{
+    text-align: center;
+}
