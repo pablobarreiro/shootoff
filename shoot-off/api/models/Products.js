@@ -4,29 +4,35 @@ const db = require ("../db")
 class Products extends sequelize.Model {
 }
 Products.init({
-    nombre: {
+    product_name: {
         type: sequelize.STRING,
+        allowNull: false
     },
-    descripcion: {
+    description: {
         type: sequelize.TEXT,
     },
-    precio: {
+    price: {
         type: sequelize.INTEGER,
+        allowNull: false
     },
-    categoria: {
+    category: {
         type: sequelize.STRING,
+        allowNull: false
     },
     stock: {
         type: sequelize.INTEGER,
+        defaultValue: 0
     },
-    valoracion: {
+    vote: {
         type: sequelize.FLOAT,
     },
-    comentarios: {
-        type: sequelize.TEXT,
+    coments: {
+        type: sequelize.ARRAY(sequelize.TEXT),
+        defaultValue: [],
     },
-    nroDeVotos: {
+    vote_count: {
         type: sequelize.INTEGER,
+        defaultValue: 0
     },
 }, {sequelize:db, modelName:"products"})
 
