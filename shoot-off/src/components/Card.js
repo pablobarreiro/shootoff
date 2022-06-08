@@ -1,13 +1,17 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-export const Card = (props) => {
+export const Card = ({ props }) => {
+
+
     return (
         <div className='card text-center'>
-            <img src={props.img} />
+            <Link to={`/product/${props.id}`}>
+                <img src={props.img} />
+            </Link>
             <div className='card-body'>
                 <h4>{props.nombre}</h4>
                 <p className='card-text text-secondary'>{props.descripcion}</p>
-                <button className='btn btn-outline-secondary rounded-0'>Ver detalles</button>
             </div>
         </div>
     )

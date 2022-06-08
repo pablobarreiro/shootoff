@@ -5,22 +5,45 @@ import { Card } from './Card'
 const products = [
     {
         nombre: "TITULO DEL PRODUCTO",
+        id:1,
         descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
         img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
     },
     {
         nombre: "TITULO DEL PRODUCTO",
+        id:2,
         descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
         img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
     },
     {
         nombre: "TITULO DEL PRODUCTO",
+        id:3,
         descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
         img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
     },
+    {
+        nombre: "TITULO DEL PRODUCTO",
+        id:4,
+        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
+        img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
+    },
+    {
+        nombre: "TITULO DEL PRODUCTO",
+        id:5,
+        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
+        img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
+    },
+    {
+        nombre: "TITULO DEL PRODUCTO",
+        id:6,
+        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
+        img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg"
+    },
+    
 ]
 
 //CARDS DEBERIA RECIBIR UN PARAMETRO LLAMADO "PRODUCTS", EL CUAL SEA UN ARREGLO DE OBJETOS, CON UNA DESCRIPCION DEL PRODUCTO, NOMBRE, IMAGEN
+
 
 export const Cards = () => {
     return (
@@ -29,7 +52,7 @@ export const Cards = () => {
                 {
                     products.map((product, i) => (
                         <div className='col-md-4' key= {i}>
-                            <Card nombre={product.nombre} descripcion={product.descripcion} img={product.img}/>
+                            <Card props={product}/>
                         </div>
                     ))
                 }
