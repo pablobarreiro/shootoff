@@ -35,4 +35,10 @@ productRouter.put("/:id", (req, res) => {
   });
 });
 
+productRouter.delete("/:id",(req,res)=>{
+  const {id}=req.params
+  Products.destroy({where:{id}})
+  res.sendStatus(204)
+})
+
 module.exports = productRouter;
