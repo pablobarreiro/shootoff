@@ -36,7 +36,7 @@ userRouter.put("/me/:id" , (req, res) => {
        },
        returning: true,
        plain: true
-   }).then( result => {
+   }).then(result => {
     const user = result[1]
     res.json({
         messege: "upadted successfully",
@@ -46,44 +46,54 @@ userRouter.put("/me/:id" , (req, res) => {
    .catch(() => res.sendStatus(500))
 })
 
-userRouter.get("/admin/users", (req, res) => {
-    if(Users.admin === false){
-        res.sendStatus(401)
-    }else{
-        Users.findAll().then((users) => res.json(users))
-    }
+userRouter.get("/admin/:id/users", (req, res) => {
+    Users.findByPk(req.params.id)
+        .then((user) => {
+            if(user.admin === true){
+                Users.findAll()
+                   .then((users) => res.status(200).json(users))
+           }else{
+              res.sendStatus(401)
+           }
+        })
+        .catch(err => console.log(err))
 })
 
-userRouter.delete("/admin/:id", (req, res) => {
-    if(Users.admin === false){
-        res.sendStatus(401)
-    }else{
-        Users.destroy({
-            where: {
-                id: req.params.id
+userRouter.delete("/admin/:adminId/remove/:id", (req, res) => {
+    Users.findByPk(req.params.adminId)
+        .then((user) => {
+            if(user.admin === true){
+                Users.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                })
+                res.sendStatus(204)
+            }else{
+                res.sendStatus(401)
             }
         })
-        .then(res.sendStatus(204))
         .catch(err =>  console.log(err))
-    }
-    
 })
 
-userRouter.put("/admin/add/:id", (req, res) => {
-    if(Users.admin === false){
-        res.sendStatus(401)
-    }else{
-        Users.update(req.body, {
-            where: {
-                id: req.params.id
+userRouter.put("/admin/:adminId/add/:id", (req, res) => {
+    Users.findByPk(req.params.adminId)
+        .then((user) => {
+            if(user.admin === true){
+            Users.findByPk(req.params.id)
+            .then(newAdmin => {
+                newAdmin.update({
+                    admin: !newAdmin.admin
+                       
+                })
+            })
             }
         })
-        if(Users.admin === false){
-            Users.admin === true
-        }
-    }
+        .then(() => res.sendStatus(204))
+        .catch(() =>  res.sendStatus(500))
 })
 
+     
 
 
 module.exports = userRouter ;
