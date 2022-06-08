@@ -1,0 +1,60 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    height:100px;
+    color: black;
+    font-size: 20px;
+    flex-wrap:wrap;
+}
+
+.shop_botton{
+    color: black;
+    font-size: 20px;
+    margin: 0px 20px;
+    padding: 10px;
+}
+.navbar-toggler{
+    display: flex;
+    align-items: center;
+    border: none;
+}
+
+.botton-navbar{
+    width: 90px;
+    background: none;
+    border: none;
+    margin: 0px 20px;
+    padding: 10px;
+}
+.input-group{
+    display: flex;
+    width: 80%;
+}
+.navbar-icons{
+    display: flex;
+
+}
+.navbar-icons-2{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+
+}
+.icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.botton-login{
+    background: none;
+    border: none;
+    padding: 10px;
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.botton-descrition{
+font-size: 15px;
+}

@@ -6,7 +6,9 @@ const expressSession = require('express-session')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const cookieParser = require('cookie-parser')
+
 const router = require("./routes")
+
 
 app.use(express.json())
 
@@ -41,7 +43,10 @@ Users.findByPk(id)
     .then(user => done(null, user))
 });
 
+
 app.use("/api",router)
+
+
 
 db.sync({
     force: false

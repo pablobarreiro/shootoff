@@ -16,20 +16,15 @@ Sales.init({
         type: sequelize.INTEGER,
         allowNull: false
     },
-    date: {
-        type: sequelize.DATE,
+    order_number: {
+        type: sequelize.INTEGER,
+        defaultValue: 0
     },
     status: {
         type: sequelize.STRING,
         defaultValue: 'pending'
     },
 }, {sequelize:db, modelName:"sales"})
-
-//funcion que genere una date y la guarde en la tabla
-Sales.addHook('beforeCreate', (sale)=>{
-    const date = new Date()
-    sale.date = date
-})
 
 
 module.exports = Sales
