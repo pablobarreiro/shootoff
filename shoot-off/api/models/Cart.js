@@ -4,11 +4,11 @@ const db = require ("../db")
 class Cart extends sequelize.Model {
 }
 Cart.init({
-    productId: {
+    product_id: {
         type: sequelize.STRING,
         allowNull: false
     },
-    userId: {
+    user_id: {
         type: sequelize.INTEGER,
         allowNull: false
     },

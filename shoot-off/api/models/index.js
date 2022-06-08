@@ -15,7 +15,7 @@ Sales.belongsToMany(Products, {through: 'products_to_sales'})
 Users.belongsToMany(Products, {through: 'users_to_products'})
 Products.belongsToMany(Users, {through: 'users_to_products'})
 
-Users.belongsTo(Cart)
-Cart.hasOne(Users)
+Users.hasMany(Cart)
+Cart.belongsTo(Users)
 
 module.exports = {Users, Sales, Products, Cart}
