@@ -34,6 +34,9 @@ Products.init({
         type: sequelize.INTEGER,
         defaultValue: 0
     },
+    img_url: {
+        type: sequelize.STRING
+    }
 }, {sequelize:db, modelName:"products"})
 
 

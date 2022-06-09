@@ -6,16 +6,16 @@ const Cart = require ("./Cart")
 Sales.belongsTo(Users)
 Users.hasMany(Sales)
 
-Products.belongsToMany(Cart, {through: 'products_to_carts'})
-Cart.belongsToMany(Products, {through: 'products_to_carts'})
+Cart.belongsTo(Products)
+Products.hasMany(Cart)
 
-Products.belongsToMany(Sales, {through: 'products_to_sales'})
-Sales.belongsToMany(Products, {through: 'products_to_sales'})
+Sales.belongsTo(Products)
+Products.hasMany(Sales)
 
 Users.belongsToMany(Products, {through: 'users_to_products'})
 Products.belongsToMany(Users, {through: 'users_to_products'})
 
-Users.hasMany(Cart)
 Cart.belongsTo(Users)
+Users.hasMany(Cart)
 
 module.exports = {Users, Sales, Products, Cart}

@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.use("/product", productRouter)
 router.use("/user", userRouter)
+router.use("/cart",cartRouter)
 router.use("/checkout", checkoutRouter)
 
 
