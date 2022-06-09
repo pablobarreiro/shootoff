@@ -4,11 +4,11 @@ const db = require ("../db")
 class Sales extends sequelize.Model {
 }
 Sales.init({
-    userId: {
+    user_id: {
         type: sequelize.INTEGER,
         allowNull: false
     },
-    productId: {
+    product_id: {
         type: sequelize.INTEGER,
         allowNull: false
     },
