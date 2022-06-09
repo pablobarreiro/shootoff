@@ -14,8 +14,10 @@ userRouter.post("/login", passport.authenticate("local"), (req, res) => {
     res.send(req.user)
 });
 
-userRouter.post("/logout", (req, res) => {
-    req.logOut();
+userRouter.post("/logout", (req, res, next) => {
+    req.logOut(function(err) {
+        if(err) {return next(err)}
+    });
     res.sendStatus(200);
 })
 
@@ -79,17 +81,19 @@ userRouter.delete("/admin/:adminId/remove/:id", (req, res) => {
 userRouter.put("/admin/:adminId/add/:id", (req, res) => {
     Users.findByPk(req.params.adminId)
         .then((user) => {
-            if(user.admin === true){
+            if(user.admin === true && req.params.adminId !== req.params.id){
             Users.findByPk(req.params.id)
-            .then(newAdmin => {
-                newAdmin.update({
-                    admin: !newAdmin.admin
-                       
+                .then(newAdmin => {
+                    newAdmin.update({
+                        admin: !newAdmin.admin
+                        
+                    })
                 })
-            })
+                res.sendStatus(204)
+            }else if(req.params.adminId === req.params.id){
+                res.send("cant change yourself rol")
             }
         })
-        .then(() => res.sendStatus(204))
         .catch(() =>  res.sendStatus(500))
 })
 
