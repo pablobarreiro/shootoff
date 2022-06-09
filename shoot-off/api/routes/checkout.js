@@ -1,6 +1,6 @@
 const express = require("express");
 const checkoutRouter = express.Router();
-const { Cart, Sales, Products } = require("../models");
+const { Cart, Sales, Products, Users } = require("../models");
 const sequelize = require('sequelize')
 const { sendPurchaseMail } = require('../utils/mail')
 
@@ -9,10 +9,11 @@ checkoutRouter.post('/:id', (req,res) => { // enviar el id de usuario a traves p
     const id = req.params.id
     Cart.findAll({where:{ userId: id }}) // busco todas las compras que realizo un usuario en el modelo Cart
     .then(cartProducts => {
+        cartProducts = cartProducts.map(e=> e.dataValues) //hago el map con dataValues porque sino no lo toma
         Sales.bulkCreate(cartProducts) // duplico la info en el modelo Sales
         .then(createdSales => {
-            createdSales.forEach( sale => sale.setUsers(cartProducts[0].userId))
-            createdSales.forEach(( sale, i ) => sale.addProducts(cartProducts[i].productId))
+            createdSales.forEach( sale => sale.setUser(cartProducts[0].user_id))
+            createdSales.forEach(( sale, i ) => sale.setProduct(cartProducts[i].product_id))
         })
         return cartProducts
     })
@@ -26,11 +27,12 @@ checkoutRouter.post('/:id', (req,res) => { // enviar el id de usuario a traves p
         })
     })
     .then(() => {
-        Sales.findOne({
-            attributes: [sequelize.fn('max', sequelize.col('order_number'))], 
-            raw:true,
-            include:{ model: Users }
-        })
+        // // ENVIAR MAIL DE CONFIRMACION DE COMPRA
+        // Sales.findOne({
+        //     attributes: [sequelize.fn('max', sequelize.col('order_number'))], 
+        //     raw:true,
+        //     include:{ model: Users }
+        // })
         // .then(saleUser => sendPurchaseMail(saleUser.users.email,saleUser.order_number))
         res.sendStatus(201)
     })
@@ -43,7 +45,7 @@ checkoutRouter.post('/:id', (req,res) => { // enviar el id de usuario a traves p
 // CONFIRMAR UN PEDIDO
 checkoutRouter.put('/confirm/:order_number',(req,res) => { // enviar order_number por params
     const {order_number} = req.params.order_number
-    Sales.update({status:'confirmed'},{where:{ order_number },returning:true})
+    Sales.update({status:'confirmed'},{where:{ order_number:Number(order_number) },returning:true})
     .then(updatedSales => res.send(updatedSales))
     .catch(err => {
         console.log(err)
@@ -54,7 +56,7 @@ checkoutRouter.put('/confirm/:order_number',(req,res) => { // enviar order_numbe
 // RECHAZAR UN PEDIDO
 checkoutRouter.put('/reject/:order_number',(req,res) => { // enviar order_number por params
     const order_number = req.params.order_number
-    Sales.update({status:'rejected'},{where:{ order_number },returning:true})
+    Sales.update({status:'rejected'},{where:{ order_number:Number(order_number) },returning:true})
     .then(updatedSales => res.send(updatedSales))
     .catch(err => {
         console.log(err)
@@ -62,20 +64,34 @@ checkoutRouter.put('/reject/:order_number',(req,res) => { // enviar order_number
     })
 })
 
-/* DESCOMENTAR Y TERMINAR DESPUES DE CONFIRMAR LAS RUTAS ANTERIORES
 // HISTORIAL DE PEDIDOS DE UN USUARIO
 checkoutRouter.get('/sales/:id',(req,res) => { // enviar id por params
-    const {id} = req.params.id
-    Sales.findAll({where:{ id },include:{model: Products}})
+    const id = req.params.id
+    console.log("TYPEOF ID",typeof id)
+    Sales.findAll({where:{ user_id:id },include:{model: Products}})
     .then(sales => {
-        console.log("SALES",sales)
-        res.send(sales)
+        const returnObj = sales.map( e => {
+            return {
+                id: e.id,
+                user_id: e.user_id,
+                quantity: e.quantity,
+                order_number: e.order_number,
+                product_id: e.product_id,
+                product_name: e.product.product_name,
+                price: e.product.price,
+                category: e.product.category,
+                stock: e.product.stock,
+                vote: e.product.vote,
+                vote_count: e.product.vote_count,
+                coments: e.product.coments
+            }
+        })
+        res.send(returnObj)
     })
     .catch(err => {
         console.log(err)
         res.status(500).send('hubo un error', err)
     })
 })
-*/
 
 module.exports= checkoutRouter

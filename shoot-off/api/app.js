@@ -49,7 +49,7 @@ app.use("/api",router)
 
 
 db.sync({
-    force: false
+    force: true
 }).then(() => {
     app.listen(3001,()=>{
         console.log("servidor escuchando en el puerto 3001")
