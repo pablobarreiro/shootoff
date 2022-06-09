@@ -3,8 +3,10 @@
    max-width: 10%;
 }
 .img-fully{
-   margin: auto;
-    min-width: 50%;
+
+   height: 100px;
+   width: 100px;
+    min-width: 10%;
 }
 .card-text{
     font-size:x-large;
@@ -15,15 +17,7 @@
     flex-direction: column;
     align-items: center;
 }
-.card-fully{
-    border-left: none;
-    border-right:none ;
-    margin: 5% auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    max-width: 50%;
-}
+
 .remove-btn{
     background: none;
     border: none;
@@ -47,13 +41,19 @@
     max-width: 60%;
 }
 .card-sumary{
-    margin: 50% 10%;
+    margin: 2%;
     border-left: none;
     border-right:none ;
-    max-width: 100%;
+    max-width: 85%;
     padding: 10px;
     background-color: ghostwhite;
+    align-items: center;
+    text-align: center;
 }
 .listgroup{
     border: none;
+}
+
+.checkout{
+    margin-bottom: 0px;
 }

@@ -1,9 +1,24 @@
 import "../styles/navbar.css";
+import axios from "axios";
 import useInput from "../commons/useInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
+import { useContext } from "react";
+import { AuthContext } from "../context/GlobalState";
+
+
 const Navbar = () => {
+  const navegate= useNavigate()
+  const { user,toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
+
+  const logOut =()=>{
+axios.post("api/user/logout").then(()=>{
+  toggleAuth(null)
+  navegate("/")
+} )
+  }
+
  const navbarSearch=(e)=>{
 
    e.preventDefault()
@@ -62,13 +77,24 @@ const Navbar = () => {
                 <BsCartFill />
               </button>
             </Link>
+
             {/* {logging-botton} */}
-            <Link to={"/login"}>
+            {user? (
+              <>
+              <button className="botton-login" onClick={logOut}>
+                <div className="botton-descrition">log-Out</div>
+                  </button>
+              <div className="botton-descrition"> {user.user_name}</div>
+             
+              </>
+            ):
+              <Link to={"/login"}>
               <button className="botton-login">
                 <BsPerson />
                 <div className="botton-descrition">sign in</div>
               </button>
-            </Link>
+            </Link>}
+            
           </div>
           
       </nav>  </div>

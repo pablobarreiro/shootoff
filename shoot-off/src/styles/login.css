@@ -6,3 +6,22 @@
     display: flex;
     margin: 5% auto;
 }
+.row{
+    justify-content: space-between;
+}
+.btn.btn-sumit{
+    margin-top: 5%;
+}
+.container.inner-page{
+margin-top:5%;
+}
+.mb-3{
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: stretch;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+    

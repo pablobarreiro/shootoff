@@ -14,8 +14,11 @@ userRouter.post("/login", passport.authenticate("local"), (req, res) => {
     res.send(req.user)
 });
 
-userRouter.post("/logout", (req, res) => {
-    req.logOut();
+userRouter.post("/logout", (req, res, next) => {
+    req.logout(function(err) {
+        if (err) { 
+            return next(err)
+        } })
     res.sendStatus(200);
 })
 

@@ -47,7 +47,7 @@ Users.init({
         type: sequelize.INTEGER
     },
     country: {
-        type: sequelize.INTEGER
+        type: sequelize.STRING
     },
     admin: {
         type: sequelize.BOOLEAN

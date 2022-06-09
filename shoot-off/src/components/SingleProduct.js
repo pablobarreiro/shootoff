@@ -21,7 +21,7 @@ const products = [
 // let btns = document.querySelector(".btnContainer")
 
 
-const SingleProduct = () => {
+export const SingleProduct = () => {
 
 
     return (
@@ -55,5 +55,3 @@ const SingleProduct = () => {
         </>
     )
 }
-
-export default SingleProduct;
