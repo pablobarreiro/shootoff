@@ -1,6 +1,7 @@
 const express = require("express");
 const productRouter = express.Router();
 const { Products } = require("../models");
+const {Op}=require("sequelize")
 
 productRouter.get("/", (req, res) => {
   Products.findAll()
@@ -39,6 +40,17 @@ productRouter.delete("/:id",(req,res)=>{
   const {id}=req.params
   Products.destroy({where:{id}})
   res.sendStatus(204)
+})
+
+productRouter.get("/category/:category", (req,res)=>{
+  Products.findAll({where:{category:req.params.category}})
+  .then(products=>{ res.status(201).send(products)})
+})
+
+
+productRouter.get("/search/:search", (req,res)=>{
+  Products.findAll({where:{product_name:{[Op.like]:`%${req.params.search}%`}}})
+  .then(products=>{ res.status(201).send(products)})
 })
 
 module.exports = productRouter;
