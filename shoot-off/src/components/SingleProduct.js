@@ -16,7 +16,7 @@ const products = [
 ]
 
 
-const SingleProduct = () => {
+export const SingleProduct = () => {
 
     const [product, setProduct] = useState({})
 
@@ -65,5 +65,3 @@ const SingleProduct = () => {
         </>
     )
 }
-
-export default SingleProduct;
