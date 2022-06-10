@@ -5,7 +5,7 @@ export const Card = ({ props }) => {
 
     return (
         <div className="card-deck">
-            <div className="card">
+            <div className="cards">
                 <Link to={`/product/${props.id}`}>
                     <img src={props.img} className="card-img-top" />
                 </Link>
