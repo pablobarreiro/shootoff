@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useContext } from 'react'
 import "../styles/singleProduct.css"
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { ReqContext } from '../context/RequestState'
+import { useInput } from '../commons/useInput'
+
 
 const products = [
     {
@@ -17,23 +20,37 @@ const products = [
 export const SingleProduct = () => {
 
     const [product, setProduct] = useState({})
-    const { productId } = useParams()
+    const [quantity,setQuantity] = useState(1)
+
+    const {productId} = useParams()
+    const {user} = useContext(ReqContext)
+    const {postCartProduct} = useContext(ReqContext)
 
     useEffect(() => {
         axios.get(`/api/product/${productId}`)
-            .then(res => res.data)
-            .then(singleProduct => {
-                setProduct(singleProduct)
-                console.log(singleProduct)
-            })
-    }, [productId])
+       .then(res => res.data)
+       .then(singleProduct => {
+           setProduct(singleProduct)
+        }) 
+    },[productId])
+
+    // No uso useInput para validar que sea mayor que cero
+    const handleQuantityChange = (e) => {
+        if(e.target.value <= 0) setQuantity(1)
+        else setQuantity(e.target.value)
+    }
+
+    const handleAddToCartClick = () => {
+        postCartProduct(user.id,product)
+    }
+
 
     return (
         <>
             <div className='details'>
                 <div className='big-img'>
                     {/* HABRIA QUE INCLUIR DENTRO DEL MODELO DE PRODUCTOS UN KEY DE IMG */}
-                    <img src={products[0].img} />
+                    <img src={product.img_url} />
                 </div>
                 <div className='box'>
                     <div className='row'>
@@ -42,7 +59,13 @@ export const SingleProduct = () => {
                     </div>
                     <p>{product.description}</p>
                     <div className='flex'>
-                        <button className='cart'>Add to cart</button>
+                        <input 
+                        type='number'
+                        className="form-control edit-value" 
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        />
+                        <button className='cart' onClick={handleAddToCartClick}>Add to cart</button>
                         {/* <input type="number" min="0" value="1" /> */}
                     </div>
                     <span>Reviews</span>

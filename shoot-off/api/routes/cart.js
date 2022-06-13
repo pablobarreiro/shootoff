@@ -8,7 +8,17 @@ cartRouter.get("/:user_id", (req, res) => {
     include: { model: Products },
   }).then((productsCart) => {
     console.log(productsCart)
-    const productList=productsCart.map(e=>{return {product:e.products[0], cantidad:e.quantity}})
+    const productList=productsCart.map(e=>{return {       
+      id: e.id,       
+      user_id: e.user_id,       
+      quantity: e.quantity,       
+      product_id: e.product_id,       
+      product_name: e.product.product_name,       
+      price: e.product.price,       
+      img_url: e.product.img_url,       
+      category: e.product.category,   
+    }})
+    console.log(productList)
     res.send(productList)
   });
 });
@@ -21,7 +31,7 @@ cartRouter.post("/", (req, res) => {
           Users.findByPk(req.body.user_id).then((user) => {
             cart.setUser(user);
           });
-          cart.addProduct(product);
+          cart.setProduct(product);
           res.sendStatus(201)
         })
         .catch((err) => console.log(err));
