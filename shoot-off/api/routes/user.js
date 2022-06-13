@@ -1,11 +1,12 @@
 const express = require("express") ;
 const userRouter = express.Router() ;
 
-const { Users } = require("../models")
+const { Users, Products } = require("../models")
 const passport = require("passport");
+const { findOrCreate } = require("../models/Users");
 
 
-
+//-- rutas register, log y perfil -- // 
 userRouter.post("/register", (req, res) => {
     Users.create(req.body).then((user) => res.status(201).send(user))
 });
@@ -48,8 +49,10 @@ userRouter.put("/me/:id" , (req, res) => {
    .catch(() => res.sendStatus(500))
 })
 
-userRouter.get("/admin/:id/users", (req, res) => {
-    Users.findByPk(req.params.id)
+
+//-- rutas del admin -- // 
+userRouter.get("/admin/:adminId/users", (req, res) => {
+    Users.findByPk(req.params.adminId)
         .then((user) => {
             if(user.admin === true){
                 Users.findAll()
@@ -61,7 +64,7 @@ userRouter.get("/admin/:id/users", (req, res) => {
         .catch(err => console.log(err))
 })
 
-userRouter.delete("/admin/:adminId/remove/:id", (req, res) => {
+userRouter.delete("/admin/:adminId/deleteUser/:id", (req, res) => {
     Users.findByPk(req.params.adminId)
         .then((user) => {
             if(user.admin === true){
@@ -78,7 +81,7 @@ userRouter.delete("/admin/:adminId/remove/:id", (req, res) => {
         .catch(err =>  console.log(err))
 })
 
-userRouter.put("/admin/:adminId/add/:id", (req, res) => {
+userRouter.put("/admin/:adminId/changeRol/:id", (req, res) => {
     Users.findByPk(req.params.adminId)
         .then((user) => {
             if(user.admin === true && req.params.adminId !== req.params.id){
@@ -96,8 +99,6 @@ userRouter.put("/admin/:adminId/add/:id", (req, res) => {
         })
         .catch(() =>  res.sendStatus(500))
 })
-
-     
 
 
 module.exports = userRouter ;
