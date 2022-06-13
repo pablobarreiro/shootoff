@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import "../styles/singleProduct.css"
-import fakeProduct from "./fakeProducts.json"
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ReqContext } from '../context/RequestState'
@@ -17,7 +16,6 @@ const products = [
     },
 
 ]
-
 
 export const SingleProduct = () => {
 
@@ -46,6 +44,7 @@ export const SingleProduct = () => {
         postCartProduct(user.id,product)
     }
 
+
     return (
         <>
             <div className='details'>
@@ -59,7 +58,6 @@ export const SingleProduct = () => {
                         <span>{product.price}</span>
                     </div>
                     <p>{product.description}</p>
-                    <p>{products[0].content}</p>
                     <div className='flex'>
                         <input 
                         type='number'

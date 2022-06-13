@@ -17,7 +17,7 @@ Products.init({
     },
     category: {
         type: sequelize.STRING,
-        allowNull: false
+        defaultValue: 'Uncategory'
     },
     stock: {
         type: sequelize.INTEGER,
