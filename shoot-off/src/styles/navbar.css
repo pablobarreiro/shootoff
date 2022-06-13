@@ -5,13 +5,15 @@
     color: black;
     font-size: 20px;
     flex-wrap:wrap;
+
+  
 }
 
 .shop_botton{
     color: black;
-    font-size: 20px;
-    margin: 0px 20px;
-    padding: 10px;
+    font-size: 18px;
+    margin: 0px 5px;
+    padding: 2px;
 }
 .navbar-toggler{
     display: flex;
@@ -30,20 +32,25 @@
     display: flex;
     width: 80%;
 }
+.dropdown-icon{
+    margin-top: 10px
+}
 .navbar-icons{
     display: flex;
 
 }
 .navbar-icons-2{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     width: 50%;
 
 }
+.nav-style{
+    margin-bottom: 20px;
+}
 .icons{
     display: flex;
-    flex-direction: column;
     align-items: center;
 }
 .botton-login{

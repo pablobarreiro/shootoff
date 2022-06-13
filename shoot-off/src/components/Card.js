@@ -1,8 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const Card = ({ props }) => {
-
     return (
         <div className="card-deck">
             <div className="cards">
@@ -14,5 +13,8 @@ export const Card = ({ props }) => {
                 </div>
             </div>
         </div>
-    )
-}
+      </div>
+      </div>
+  
+  );
+};

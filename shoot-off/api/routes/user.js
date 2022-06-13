@@ -26,6 +26,7 @@ userRouter.get("/me", (req, res) => {
     if(!req.user){
         return res.sendStatus(404);
     }else{ 
+    
         res.send(req.user)
     }
 
