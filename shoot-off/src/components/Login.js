@@ -5,6 +5,7 @@ import useInput from "../commons/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/GlobalState";
 import { useContext } from "react";
+import swal from "sweetalert";
 
 export const Login = () => {
   const navegate = useNavigate();
@@ -22,7 +23,8 @@ export const Login = () => {
       .then((logUser) => {
         toggleAuth(logUser);
         navegate("/");
-      });
+      }).catch(()=>{
+        swal({ title: "User not found", text: "please check the user data", icon: "error" })})
   };
 
   return (
