@@ -12,12 +12,12 @@ Products.init({
         type: sequelize.TEXT,
     },
     price: {
-        type: sequelize.INTEGER,
+        type: sequelize.FLOAT,
         allowNull: false
     },
     category: {
         type: sequelize.STRING,
-        allowNull: false
+        defaultValue: 'Uncategory'
     },
     stock: {
         type: sequelize.INTEGER,

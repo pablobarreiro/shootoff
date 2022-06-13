@@ -5,13 +5,12 @@ export const Card = ({ props }) => {
 
     return (
         <div className="card-deck">
-            <div className="card">
+            <div className="cards">
                 <Link to={`/product/${props.id}`}>
-                    <img src={props.img} className="card-img-top" />
+                    <img src={props.img_url} className="card-img-top" />
                 </Link>
                 <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">{props.description}</p>
+                    <h5 className="card-title">{props.product_name}</h5>
                 </div>
             </div>
         </div>
