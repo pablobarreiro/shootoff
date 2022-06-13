@@ -50,7 +50,8 @@ Users.init({
         type: sequelize.STRING
     },
     admin: {
-        type: sequelize.BOOLEAN
+        type: sequelize.BOOLEAN,
+        default: false
     },
 
 }, {sequelize:db, modelName:"users"})
@@ -60,7 +61,7 @@ Users.addHook('beforeCreate',(user)=>{
         user.password = null
         return
     }
-    return bcrypt.genSalt(16).then((cryptedSalt)=>{
+    return bcrypt.genSalt(4).then((cryptedSalt)=>{
         user.salt = cryptedSalt
         user.password = user.hashPassword(user.password,user.salt)
     })

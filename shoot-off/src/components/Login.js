@@ -64,7 +64,8 @@ export const Login = () => {
         </div>
         <div className="card-footer text-muted">
           {" "}
-          Don’t have an account? <Link to="/register"> create one </Link>
+          Don’t have an account? 
+          <Link to="/register"> create one </Link>
         </div>
       </div>
     </>

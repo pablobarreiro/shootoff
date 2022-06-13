@@ -3,7 +3,7 @@ import axios from "axios";
 import useInput from "../commons/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/GlobalState";
 
 const Navbar = () => {
@@ -27,19 +27,30 @@ const Navbar = () => {
     "Training",
     "Hunting",
   ];
+  
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
       toggleAuth(null);
       navegate("/");
     });
   };
+  
+  useEffect(()=>{
+    axios.get('/api/user/me')
+    .then(res => res.data)
+    .then(user => {
+      toggleAuth(user ? user : null)
+    })
+  },[])
 
   const navbarSearch = (e) => {
-    e.preventDefault();
-    console.log("busqueda");
-    console.log(busqueda);
-  };
-
+   e.preventDefault()
+   axios.get(`/api/product/search/${busqueda.state}`)
+   .then(res => res.data)
+   .then(searchValues => {
+   })
+ }
+  
   return (
     <>
       <nav className="navbar  fixed-top navbar-expand-lg navbar-light bg-light">

@@ -1,6 +1,6 @@
 .login{
     border-radius:10px;
-    padding:5%;
+    /* padding:5%; */
     width:70%;
     flex-direction: column;
     display: flex;

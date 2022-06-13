@@ -42,15 +42,37 @@ productRouter.delete("/:id",(req,res)=>{
   res.sendStatus(204)
 })
 
+productRouter.get("/search/:search", (req,res)=>{
+  Products.findAll({where:{product_name:{[Op.like]:`%${req.params.search}%`}}})
+  .then(products=>{ res.status(201).send(products)})
+})
+
 productRouter.get("/category/:category", (req,res)=>{
   Products.findAll({where:{category:req.params.category}})
   .then(products=>{ res.status(201).send(products)})
 })
 
-
-productRouter.get("/search/:search", (req,res)=>{
-  Products.findAll({where:{product_name:{[Op.like]:`%${req.params.search}%`}}})
-  .then(products=>{ res.status(201).send(products)})
+//PREGUNTAR GET
+productRouter.post("/categories/",(req,res)=>{
+  Products.findAll()
+  .then(categories => {
+    categories = categories.map(product=>product.category)
+    const categoryArray = []
+    categories.forEach(category => !categoryArray.includes(category) && categoryArray.push(category))
+    res.send(categoryArray)
+  })
 })
+
+productRouter.put("/category/:category", (req, res)=>{
+  Products.update(req.body, {
+    where: {
+      category: req.params.category},
+    returning: true
+  }).then((category) => {
+    res.status(200).send(category)
+  })
+})
+
+
 
 module.exports = productRouter;
