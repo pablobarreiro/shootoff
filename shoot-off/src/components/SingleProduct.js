@@ -1,7 +1,6 @@
 import axios from 'axios'
 import React from 'react'
 import "../styles/singleProduct.css"
-import fakeProduct from "./fakeProducts.json"
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
@@ -15,23 +14,19 @@ const products = [
 
 ]
 
-
 export const SingleProduct = () => {
 
     const [product, setProduct] = useState({})
-
-    const {productId} = useParams()
-
+    const { productId } = useParams()
 
     useEffect(() => {
         axios.get(`/api/product/${productId}`)
-       .then(res => res.data)
-       .then(singleProduct => {
-           setProduct(singleProduct)
-           console.log(singleProduct)
-        }) 
-    },[productId])
-
+            .then(res => res.data)
+            .then(singleProduct => {
+                setProduct(singleProduct)
+                console.log(singleProduct)
+            })
+    }, [productId])
 
     return (
         <>
@@ -46,7 +41,6 @@ export const SingleProduct = () => {
                         <span>{product.price}</span>
                     </div>
                     <p>{product.description}</p>
-                    <p>{products[0].content}</p>
                     <div className='flex'>
                         <button className='cart'>Add to cart</button>
                         {/* <input type="number" min="0" value="1" /> */}
