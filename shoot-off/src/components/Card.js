@@ -10,8 +10,7 @@ export const Card = ({ props }) => {
                     <img src={props.img} className="card-img-top" />
                 </Link>
                 <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">{props.description}</p>
+                    <h5 className="card-title">{props.product_name}</h5>
                 </div>
             </div>
         </div>

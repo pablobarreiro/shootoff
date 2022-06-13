@@ -12,7 +12,7 @@ Products.init({
         type: sequelize.TEXT,
     },
     price: {
-        type: sequelize.INTEGER,
+        type: sequelize.FLOAT,
         allowNull: false
     },
     category: {

@@ -8,6 +8,7 @@ import { Register } from "./components/Register";
 import { Cart } from "./components/Cart"
 import { SingleProduct } from "./components/SingleProduct";
 import AuthContextProvider from "./context/GlobalState";
+import ReqContextProvider from "./context/RequestState";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
   return (
     <>
+      <ReqContextProvider>
       <AuthContextProvider>
         <Navbar />
         <Routes>
@@ -26,6 +28,7 @@ function App() {
         </Routes>
         <Footer />
       </AuthContextProvider>
+      </ReqContextProvider>
     </>
   );
 }

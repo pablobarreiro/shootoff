@@ -47,6 +47,16 @@ productRouter.get("/category/:category", (req,res)=>{
   .then(products=>{ res.status(201).send(products)})
 })
 
+//PREGUNTAR GET
+productRouter.post("/categories/",(req,res)=>{
+  Products.findAll()
+  .then(categories => {
+    categories = categories.map(product=>product.category)
+    const categoryArray = []
+    categories.forEach(category => !categoryArray.includes(category) && categoryArray.push(category))
+    res.send(categoryArray)
+  })
+})
 
 productRouter.get("/search/:search", (req,res)=>{
   Products.findAll({where:{product_name:{[Op.like]:`%${req.params.search}%`}}})

@@ -5,7 +5,7 @@ class Cart extends sequelize.Model {
 }
 Cart.init({
     product_id: {
-        type: sequelize.STRING,
+        type: sequelize.INTEGER,
         allowNull: false
     },
     user_id: {

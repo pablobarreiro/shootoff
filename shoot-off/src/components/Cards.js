@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Card } from './Card'
 import fakeProduct from "./fakeProducts.json"
 import "../styles/cards.css"
+import { ReqContext } from '../context/RequestState'
 
 //ESTO ESTA HARDCODEADO, HABRIA QUE RECIBIR ESTA INFO DESDE LA DB
 const products = [
