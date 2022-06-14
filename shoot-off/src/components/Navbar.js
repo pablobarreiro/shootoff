@@ -131,7 +131,7 @@ const Navbar = () => {
                           {user.user_name}
                         </button>
                         </Link>
-                      </>
+                      </div>
                     ) : (
                       <Link to={"/login"}>
                         <button className="botton-login">
