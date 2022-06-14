@@ -4,7 +4,7 @@
     width:70%;
     flex-direction: column;
     display: flex;
-    margin: 5% auto;
+    margin: 10% auto;
 }
 .row{
     justify-content: space-between;

@@ -26,6 +26,7 @@ function App() {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/product/:productId" element={<SingleProduct />} />
           <Route path="/users/admin" element={<UserAdmin />} />
+          <Route path="/categories/:item" element={<Cards/>}/>
         </Routes>
         <Footer />
       </AuthContextProvider>
