@@ -87,9 +87,9 @@ userRouter.put("/admin/:adminId/changeRol/:id", (req, res) => {
         .then((user) => {
             if(user.admin === true && req.params.adminId !== req.params.id){
             Users.findByPk(req.params.id)
-                .then(newAdmin => {
-                    newAdmin.update({
-                        admin: !newAdmin.admin
+                .then(newEmployee => {
+                    newEmployee.update({
+                        employee: !newEmployee.employee
                         
                     })
                 })
