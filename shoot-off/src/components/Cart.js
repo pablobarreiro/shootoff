@@ -1,24 +1,28 @@
 import "../styles/cart.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import  {IndividualCart} from "./IdividualCart";
 import { useContext, useEffect, useState } from "react";
 import { ReqContext } from "../context/RequestState"
 import { AuthContext } from "../context/GlobalState";
+import { CartContext } from "../context/CartState";
 
 export const Cart = () => {
+  const navigate = useNavigate()
   const {getUserCart,deleteCartProduct} = useContext(ReqContext)
   const {user, isAuthenticated} = useContext(AuthContext)
-  const [cartProducts, setCartProducts] = useState([])
+  const {cartProducts, setCartProducts} = useContext(CartContext)
   const [total,setTotal] = useState(0)
 
   // Traigo todos los productos que estan guardados en el carrito del usuario
   useEffect(() => {
-    if(isAuthenticated) getUserCart(user.id)
-    .then(products => {
-      setCartProducts(products)
-    })
-  },[cartProducts.length,cartProducts.map(e=>e.quantity)])
-  
+    if(isAuthenticated) {
+      getUserCart(user.id)
+      .then(userCart => {
+        setCartProducts(userCart)
+      })
+    } else navigate('/login')
+  },[])
+
   // Calculo el total
   useEffect(()=>{
     setTotal(0)
@@ -70,7 +74,7 @@ export const Cart = () => {
               <th />
             </tr>
           </thead>
-          {cartProducts.map((cartProduct,i) => <IndividualCart cartProduct={cartProduct} handleRemove={handleRemove} key={i}/> )}
+          {cartProducts.map((cartProduct,i) => <IndividualCart i={i} handleRemove={handleRemove} key={i}/> )}
           <tfoot>
             <tr>
             <th />

@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Card } from './Card'
 import fakeProduct from "./fakeProducts.json"
 import "../styles/cards.css"
 import { ReqContext } from '../context/RequestState'
-import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 export const Cards = () => {

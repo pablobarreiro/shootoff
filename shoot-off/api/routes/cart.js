@@ -7,7 +7,6 @@ cartRouter.get("/:user_id", (req, res) => {
     where: { user_id: req.params.user_id },
     include: { model: Products },
   }).then((productsCart) => {
-    console.log(productsCart)
     const productList=productsCart.map(e=>{return {       
       id: e.id,       
       user_id: e.user_id,       
@@ -18,7 +17,6 @@ cartRouter.get("/:user_id", (req, res) => {
       img_url: e.product.img_url,       
       category: e.product.category,   
     }})
-    console.log(productList)
     res.send(productList)
   });
 });
