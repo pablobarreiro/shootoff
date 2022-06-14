@@ -4,20 +4,13 @@ import "../styles/singleProduct.css"
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ReqContext } from '../context/RequestState'
-import { useInput } from '../commons/useInput'
 import { AiFillStar } from "react-icons/ai";
+import { AuthContext } from '../context/GlobalState'
 
-const products = [
-  {
-    nombre: "TITULO DEL PRODUCTO",
-    descripcion:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur ipsum sapiente odit tempore nemo eveniet nihil fugiat vero dicta! Minima, eaque dolore? Quasi sunt aliquid, deleniti beatae assumenda ipsa reprehenderit.",
-    img: "https://www.armeriacanigo.com.ar/wp-content/uploads/10024_1-324x324.jpg",
-    precio: "$1111",
-  },
-];
+
 
 export const SingleProduct = () => {
+
   const [product, setProduct] = useState({});
 
   const { productId } = useParams();
@@ -32,7 +25,7 @@ export const SingleProduct = () => {
   
    const [quantity,setQuantity] = useState(1)
    
-   const {user} = useContext(ReqContext)
+   const {user, isAuthenticated} = useContext(AuthContext)
     
    const {postCartProduct} = useContext(ReqContext)
     
@@ -69,6 +62,7 @@ export const SingleProduct = () => {
       .get(`/api/product/${productId}`)
       .then((res) => res.data)
       .then((product) => {
+        if(isAuthenticated)
         axios.put(`/api/product/${productId}`, {
           vote: product.vote + starValue,
           vote_count: product.vote_count + 1,
@@ -84,9 +78,10 @@ export const SingleProduct = () => {
   const addComent = function (e) {
     e.preventDefault();
     const comentsArray = coments;
-    comentsArray.push(coment);
+    if(isAuthenticated)
+    comentsArray.push([user.user_name]+":"+coment);
     setComents(comentsArray);
-    axios.put(`/api/product/${productId}`, { coments: coments });
+    axios.put(`/api/product/${productId}`, { coments: coments })
   };
 
 
@@ -98,19 +93,19 @@ export const SingleProduct = () => {
     const handleAddToCartClick = () => {
         postCartProduct(user.id,product)
     }
-
+    console.log(coments)
 
     return (
         <>
             <div className='details'>
                 <div className='big-img'>
                     {/* HABRIA QUE INCLUIR DENTRO DEL MODELO DE PRODUCTOS UN KEY DE IMG */}
-                    <img src={product.img_url} />
+                    <img src={product.img_url} alt=""/>
                 </div>
                 <div className='box'>
                     <div className='row'>
                         <h2>{product.product_name}</h2>
-                        <span>{product.price}</span>
+                        <span>$ {product.price}</span>
                     </div>
                     <p>{product.description}</p>
                     <div className='flex'>
@@ -120,12 +115,12 @@ export const SingleProduct = () => {
                         value={quantity}
                         onChange={handleQuantityChange}
                         />
-                        <button className='cart' onClick={handleAddToCartClick}>Add to cart</button>
+                        <button className='cart' onClick={handleAddToCartClick}>add to cart</button>
                         {/* <input type="number" min="0" value="1" /> */}
                     </div>
           <span>Reviews</span>
           <div className="btnContainer">
-            {star.map((_, index) => {
+            {starValue===0?star.map((_, index) => {
               return (
                 <AiFillStar
                   className="star"
@@ -141,16 +136,32 @@ export const SingleProduct = () => {
                   key={index}
                 />
               );
-            })}
+                }):
+            star.map((_, index) => {
+              return (
+                <AiFillStar
+                  className="star"
+                  size={24}
+                  color={
+                    (hoverValue || starValue) > index
+                      ? colors.orange
+                      : colors.grey
+                  }
+                />
+              );
+                })}
           </div>
-          <button className="btnSubmit">Submit</button>
-          <div>
-            {product.coments}comentarios
-            <form>
+          <div class="col">
+            <h4>comentarios </h4>
+            <hr></hr>
+          </div>
+          <div class="container">
+          {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
+          </div>
+          <form>
               <input onChange={handleChange} value={coment} />
               <button onClick={addComent}>Agregar comentario</button>
             </form>
-          </div>
         </div>
       </div>
     </>
