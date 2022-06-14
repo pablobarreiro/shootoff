@@ -10,6 +10,8 @@ import { SingleProduct } from "./components/SingleProduct";
 import UserAdmin from "./components/UserAdmin";
 import AuthContextProvider from "./context/GlobalState";
 import ReqContextProvider from "./context/RequestState";
+import CartContextProvider from "./context/CartState";
+import MyProfile from "./components/MyProfile";
 
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
   return (
     <>
       <ReqContextProvider>
+      <CartContextProvider>
       <AuthContextProvider>
         <Navbar />
         <Routes>
@@ -26,9 +29,12 @@ function App() {
           <Route path="/cart" element={<Cart/>}/>
           <Route path="/product/:productId" element={<SingleProduct />} />
           <Route path="/users/admin" element={<UserAdmin />} />
+          <Route path="/categories/:item" element={<Cards/>}/>
+          <Route path="/users/:username" element={<MyProfile />} />
         </Routes>
         <Footer />
       </AuthContextProvider>
+      </CartContextProvider>
       </ReqContextProvider>
     </>
   );

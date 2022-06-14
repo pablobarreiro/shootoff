@@ -13,8 +13,5 @@ export const Card = ({ props }) => {
                 </div>
             </div>
         </div>
-      </div>
-      </div>
-  
   );
 };

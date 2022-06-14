@@ -52,8 +52,7 @@ productRouter.get("/category/:category", (req,res)=>{
   .then(products=>{ res.status(201).send(products)})
 })
 
-//PREGUNTAR GET
-productRouter.post("/categories/",(req,res)=>{
+productRouter.post("/categories",(req,res)=>{
   Products.findAll()
   .then(categories => {
     categories = categories.map(product=>product.category)
