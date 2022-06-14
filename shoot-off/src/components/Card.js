@@ -12,6 +12,6 @@ export const Card = ({ props }) => {
                     <h5 className="card-title">{props.product_name}</h5>
                 </div>
             </div>
-      </div>
+        </div>
   );
 };

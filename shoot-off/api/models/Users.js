@@ -65,7 +65,19 @@ Users.addHook('beforeCreate',(user)=>{
         user.password = null
         return
     }
-    return bcrypt.genSalt(4).then((cryptedSalt)=>{
+    return bcrypt.genSalt(8).then((cryptedSalt)=>{
+        user.salt = cryptedSalt
+        user.password = user.hashPassword(user.password,user.salt)
+    })
+    .catch(err=>console.log(err))
+    })
+
+Users.addHook('afterUpdate',(user)=>{
+    if(!user.password.length) {
+        user.password = null
+        return
+    }
+    return bcrypt.genSalt(8).then((cryptedSalt)=>{
         user.salt = cryptedSalt
         user.password = user.hashPassword(user.password,user.salt)
     })
