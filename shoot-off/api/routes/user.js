@@ -52,6 +52,7 @@ userRouter.put("/me/:id" , (req, res) => {
 
 
 //-- rutas del admin -- // 
+    //falta traer usuarios ordenados!
 userRouter.get("/admin/:adminId/users", (req, res) => {
     Users.findByPk(req.params.adminId)
         .then((user) => {
