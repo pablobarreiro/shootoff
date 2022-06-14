@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Card } from './Card'
-import fakeProduct from "./fakeProducts.json"
 import "../styles/cards.css"
 import { ReqContext } from '../context/RequestState'
 import axios from 'axios'

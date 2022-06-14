@@ -53,6 +53,10 @@ Users.init({
         type: sequelize.BOOLEAN,
         default: false
     },
+    employee: {
+        type: sequelize.BOOLEAN,
+        default: false
+    }
 
 }, {sequelize:db, modelName:"users"})
 
