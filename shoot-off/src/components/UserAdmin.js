@@ -1,60 +1,32 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { nanoid } from "nanoid"
 import EditableRow, { ReadOnlyRow } from './EditableRow'
-
-
-const users = [
-    {
-        "id": 2,
-        "user_name": "Maximiliano",
-        "admin": true,
-        "phone": "123-456",
-        "email": "maximilminu@gmail.com"
-    },
-    {
-        "id": 3,
-        "user_name": "Majo",
-        "admin": false,
-        "phone": "123-456",
-        "email": "maximilminu@gmail.com"
-    },
-    {
-        "id": 4,
-        "user_name": "Alejandro",
-        "admin": false,
-        "phone": "123-456",
-        "email": "maximilminu@gmail.com"
-    },
-    {
-        "id": 5,
-        "user_name": "Pablo",
-        "admin": false,
-        "phone": "123-456",
-        "email": "maximilminu@gmail.com"
-    },
-    {
-        "id": 6,
-        "user_name": "Franco",
-        "admin": false,
-        "phone": "123-456",
-        "email": "maximilminu@gmail.com"
-    },
-]
-
+import "../styles/UserAdmin.css"
 
 const UserAdmin = () => {
 
-    const [contacts, setContacts] = useState(users)
+    const [contacts, setContacts] = useState([])
+
+
+    useEffect(() => {
+        axios.get("/api/user/admin/1/users")
+            .then(res => res.data)
+            .then((users) => setContacts(users))
+
+    },[])
+
+
     const [addFormData, setAddFormData] = useState({
+        id: "",
         user_name: "",
         phone: "",
         email: "",
         admin: ""
     })
 
-    const[editFormData, setEditFormData] = useState({
+    const [editFormData, setEditFormData] = useState({
+        id: "",
         user_name: "",
         phone: "",
         email: "",
@@ -89,8 +61,11 @@ const UserAdmin = () => {
     const handleAddFormSubmit = (e) => {
         e.preventDefault()
 
+        const ids = contacts.map((user) => (user.id))
+        const maxId = Math.max(...ids)
         const newContact = {
-            id: nanoid(),
+            //Tendria que agarrar el ultimo ID de Users y sumarle 1 sin la posibilidad de editarlo
+            id: maxId +1,
             user_name: addFormData.user_name,
             phone: addFormData.phone,
             email: addFormData.email,
@@ -98,6 +73,26 @@ const UserAdmin = () => {
         }
         const newContacts = [...contacts, newContact]
         setContacts(newContacts)
+    }
+
+    const handleEditFormSubmit = (e) => {
+        e.preventDefault()
+        const editedContact = {
+            id: editContactId,
+            user_name: editFormData.user_name,
+            phone: editFormData.phone,
+            email: editFormData.email,
+            admin: editFormData.admin
+        }
+
+        const newContacts = [...contacts]
+
+        const index = contacts.findIndex((contact) => contact.id === editContactId)
+
+        newContacts[index] = editedContact
+
+        setContacts(newContacts)
+        setEditContactId(null)
     }
 
     const handleEditClick = (e, contact) => {
@@ -114,10 +109,23 @@ const UserAdmin = () => {
         setEditFormData(formValues)
     }
 
+    const handleCancelClick = (e) => {
+        setEditContactId(null)
+    }
+
+    const handleDeleteClick = (contactId) => {
+        const newContacts = [...contacts]
+
+        const index = contacts.findIndex((contact) => contact.id === contactId)
+
+        newContacts.splice(index, 1)
+
+        setContacts(newContacts)
+    }
 
     return (
-        <div>
-            <form>
+        <div className='UserAdmin'>
+            <form onSubmit={handleEditFormSubmit}>
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
@@ -133,7 +141,18 @@ const UserAdmin = () => {
                         {contacts.map((contact, i) => {
                             return (
                                 <>
-                                {editContactId === contact.id ? <EditableRow  editFormData={editFormData} handleEdi/> : <ReadOnlyRow contact={contact} i={i} handleEditClick={handleEditClick}/>}                                    
+                                    {editContactId === contact.id ?
+                                        <EditableRow
+                                            contact={contact}
+                                            editFormData={editFormData}
+                                            handleEditFormChange={handleEditFormChange}
+                                            handleCancelClick={handleCancelClick} /> 
+                                            :
+                                        <ReadOnlyRow
+                                            contact={contact}
+                                            i={i}
+                                            handleEditClick={handleEditClick}
+                                            handleDeleteClick={handleDeleteClick} />}
                                 </>
                             )
                         })}
