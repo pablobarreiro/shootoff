@@ -4,6 +4,7 @@ import "../styles/cards.css";
 import { ReqContext } from "../context/RequestState";
 import { useLocation } from "react-router-dom";
 
+
 export const Cards = () => {
   const location = useLocation().pathname;
   const path= location.slice(1,11)

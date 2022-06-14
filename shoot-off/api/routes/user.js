@@ -52,6 +52,7 @@ userRouter.put("/me/:id" , (req, res) => {
 
 
 //-- rutas del admin -- // 
+    //falta traer usuarios ordenados!
 userRouter.get("/admin/:adminId/users", (req, res) => {
     Users.findByPk(req.params.adminId)
         .then((user) => {
@@ -87,9 +88,9 @@ userRouter.put("/admin/:adminId/changeRol/:id", (req, res) => {
         .then((user) => {
             if(user.admin === true && req.params.adminId !== req.params.id){
             Users.findByPk(req.params.id)
-                .then(newAdmin => {
-                    newAdmin.update({
-                        admin: !newAdmin.admin
+                .then(newEmployee => {
+                    newEmployee.update({
+                        employee: !newEmployee.employee
                         
                     })
                 })

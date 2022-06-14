@@ -126,10 +126,12 @@ const Navbar = () => {
                         <button className="botton-login" onClick={logOut}>
                           <div className="botton-login">log-Out</div>
                         </button>
-                        <div className="botton-login">
+                        <Link to={`/users/${user.user_name}`} className="botton-descrition">
+                        <button className="botton-login">
                           {user.user_name}
-                        </div>
-                      </div>
+                        </button>
+                        </Link>
+                      </>
                     ) : (
                       <Link to={"/login"}>
                         <button className="botton-login">
