@@ -53,7 +53,7 @@ Users.init({
         type: sequelize.BOOLEAN,
         default: false
     },
-    empleado: {
+    employee: {
         type: sequelize.BOOLEAN,
         default: false
     }
