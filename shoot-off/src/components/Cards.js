@@ -8,34 +8,39 @@ import Pagination from "./Pagination"
 
 export const Cards = () => {
   const location = useLocation().pathname;
+
   const path = location.slice(1, 11)
   const categorie = location.slice(12)
+  const pathSearch = location.slice(1,7)
+  const search = location.slice(8)
 
-  const { getAllProducts, getProductsByCategory } = useContext(ReqContext);
+
+  const { getAllProducts, getProductsByCategory, getProductsBySearch } = useContext(ReqContext);
   const [products, setProduct] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(9)
 
-  //si funciona pero no renderiza el front 
   useEffect(() => {
     //condicional para que segun la ruta del front sepa que pedido hacer
-
-    if (path === "") {
-      //trae todos los productos
+    if (path === "") { 
+           //trae todos los productos
       getAllProducts().then((products) => {
         setProduct(products);
       });
-    } else if (path == "categories") {
-      //aca hacer el pedido segun la categoria escogida
-      getProductsByCategory(categorie).then((products) => {
+    }else if(path === "categories"){
+         //aca hacer el pedido segun la categoria escogida
+        getProductsByCategory(categorie).then((products) => {
+            setProduct(products);
+          });
+    }else if(pathSearch === "search"){
+         // pide segun la barra de busqueda
+      getProductsBySearch(search).then((products) => {
         setProduct(products);
       });
-
     }
+  }, [location]);
 
-
-  }, []);
 
   //Funcion para cambiar de pagina
   const paginate = pageNumber => setCurrentPage(pageNumber)

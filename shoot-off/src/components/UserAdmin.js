@@ -30,12 +30,13 @@ const UserAdmin = () => {
   const handleDeleteClick = (contactId) => {
     console.log(contactId)
     const newContacts = [...contacts];
-
     const index = contacts.findIndex((contact) => contact.id === contactId);
+    
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
     axios.delete(`/api/user/admin/1/deleteUser/${contactId}`)
+
   };
   if (isAuthenticated && user.admin) {
     return (

@@ -29,7 +29,7 @@ export const Cart = () => {
     let totalAux = 0
     cartProducts.forEach(product => {
       totalAux += product.quantity * product.price})
-    setTotal(totalAux)
+    setTotal(Math.floor(totalAux * 100) / 100)
   },[cartProducts])
 
   // Elimino 1 producto del carrito (toco el tachito)
