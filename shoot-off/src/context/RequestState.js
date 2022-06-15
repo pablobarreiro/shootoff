@@ -106,7 +106,7 @@ const allRequests = {
   .then(res => res.data) 
   },
   userCheckoutHistory: (userId) => {
-    return axios.put(`/api/checkout/sales/${userId}`)
+    return axios.get(`/api/checkout/sales/${userId}`)
   .then(res => res.data) 
   },
 }
