@@ -43,7 +43,7 @@ productRouter.delete("/:id",(req,res)=>{
 })
 
 productRouter.get("/search/:search", (req,res)=>{
-  Products.findAll({where:{product_name:{[Op.like]:`%${req.params.search}%`}}})
+  Products.findAll({where:{product_name:{[Op.iLike]:`%${req.params.search}%`}}})
   .then(products=>{ res.status(201).send(products)})
 })
 

@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Cards } from './components/Cards';
@@ -13,6 +14,8 @@ import AuthContextProvider from "./context/GlobalState";
 import ReqContextProvider from "./context/RequestState";
 import CartContextProvider from "./context/CartState";
 import MyProfile from "./components/MyProfile";
+import HistorySales from "./components/HistorySales";
+import IndividualSale from "./components/IndividualSale";
 
 
 function App() {
@@ -31,8 +34,11 @@ function App() {
           <Route path="/product/:productId" element={<SingleProduct />} />
           <Route path="/users/admin" element={<UserAdmin />} />
           <Route path="/categories/:item" element={<Cards/>}/>
-          <Route path="/users/:username" element={<MyProfile />} />
           <Route path="/checkout" element={<Checkout />}/>
+          <Route path="/search/:search" element={<Cards/>}/>
+          <Route path="/users/me" element={<MyProfile />} />
+          <Route path="/users/me/history" element={<HistorySales />} />
+          <Route path="/users/me/history/:order_number" element={<IndividualSale />} />
         </Routes>
         <Footer />
       </AuthContextProvider>

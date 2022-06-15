@@ -30,7 +30,6 @@ export const SingleProduct = () => {
     
    const {postCartProduct} = useContext(ReqContext)
 
-
   useEffect(() => {
     axios
       .get(`/api/product/${productId}`)
@@ -88,6 +87,7 @@ export const SingleProduct = () => {
   // 
   const handleQuantityChange = (e) => {
     if(e.target.value <= 0) setQuantity(1)
+    else if(e.target.value >= product.stock) setQuantity(product.stock)
     else setQuantity(e.target.value)
   }
   
@@ -156,11 +156,12 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-          <div class="col">
+
+          <div className="col">
             <h4>comentarios </h4>
             <hr></hr>
           </div>
-          <div class="container">
+          <div className="container">
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
           </div>
           <form>

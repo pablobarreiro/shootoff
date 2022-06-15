@@ -1,7 +1,7 @@
 import "../styles/cart.css";
 import { Link, useNavigate } from "react-router-dom";
 import  {IndividualCart} from "./IdividualCart";
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { ReqContext } from "../context/RequestState"
 import { AuthContext } from "../context/GlobalState";
 import { CartContext } from "../context/CartState";
@@ -29,7 +29,7 @@ export const Cart = () => {
     let totalAux = 0
     cartProducts.forEach(product => {
       totalAux += product.quantity * product.price})
-    setTotal(totalAux)
+    setTotal(Math.floor(totalAux * 100) / 100)
   },[cartProducts])
 
   // Elimino 1 producto del carrito (toco el tachito)

@@ -3,8 +3,9 @@ import axios from "axios";
 import useInput from "../commons/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/GlobalState";
+import { ModalWindow } from "./ModalWindow";
 
 const Navbar = () => {
   const navegate = useNavigate();
@@ -39,12 +40,9 @@ const Navbar = () => {
 
   const navbarSearch = (e) => {
    e.preventDefault()
-   axios.get(`/api/product/search/${busqueda.state}`)
-   .then(res => res.data)
-   .then(searchValues => {
-  
-   })
- }
+   busqueda.state.length ? navegate(`/search/${busqueda.state}`) : navegate(`/`)
+  }
+
   
   return (
     <>
@@ -110,6 +108,10 @@ const Navbar = () => {
                   </div>
                 </li>
                 
+                <li className="nav-item">
+                  <ModalWindow/>
+                </li>
+
                 <div className="navbar-icons-2">
                   <li className="nav-item">
                     {/* {carrito-botton} */}
@@ -127,8 +129,9 @@ const Navbar = () => {
                         <button className="botton-login" onClick={logOut}>
                           <div className="botton-login">log-Out</div>
                         </button>
-                        <Link to={`/users/${user.user_name}`} className="botton-descrition">
+                        <Link to={`/users/me`} className="botton-descrition">
                         <button className="botton-login">
+                          <BsPerson />
                           {user.user_name}
                         </button>
                         </Link>
