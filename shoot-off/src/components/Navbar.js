@@ -21,14 +21,6 @@ const Navbar = () => {
 
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
-
-  //pedido axios para mostrar el listado de las categorias 
-
-  
-  
-
-
-
   
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
