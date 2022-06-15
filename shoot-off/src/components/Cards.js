@@ -17,7 +17,7 @@ export const Cards = () => {
   useEffect(() => {
     //condicional para que segun la ruta del front sepa que pedido hacer
 
-    if (path == "") { 
+    if (path === "") { 
            //trae todos los productos
       getAllProducts().then((products) => {
         setProduct(products);
@@ -31,7 +31,7 @@ export const Cards = () => {
     }
     
 
-  }, [location]);
+  }, []);
 
   return (
     <div className="container justify-content-center">
