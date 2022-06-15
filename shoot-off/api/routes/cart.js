@@ -3,7 +3,7 @@ const cartRouter = express.Router();
 const { Cart, Users, Products } = require("../models");
 
 cartRouter.get("/:user_id", (req, res) => {
-  Cart.findAll({
+  Cart.findAll({order: [["id", "ASC"]],
     where: { user_id: req.params.user_id },
     include: { model: Products },
   }).then((productsCart) => {

@@ -83,7 +83,8 @@ checkoutRouter.get('/sales/:id',(req,res) => { // enviar id por params
                 stock: e.product.stock,
                 vote: e.product.vote,
                 vote_count: e.product.vote_count,
-                coments: e.product.coments
+                coments: e.product.coments,
+                img_url: e.product.img_url
             }
         })
         res.send(returnObj)

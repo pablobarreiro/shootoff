@@ -47,11 +47,8 @@ const Navbar = () => {
 
   const navbarSearch = (e) => {
    e.preventDefault()
-   axios.get(`/api/product/search/${busqueda.state}`)
-   .then(res => res.data)
-   .then(searchValues => {
-   })
- }
+   busqueda.state.length ? navegate(`/search/${busqueda.state}`) : navegate(`/`)
+  }
   
   return (
     <>
@@ -133,8 +130,9 @@ const Navbar = () => {
                         <button className="botton-login" onClick={logOut}>
                           <div className="botton-login">log-Out</div>
                         </button>
-                        <Link to={`/users/${user.user_name}`} className="botton-descrition">
+                        <Link to={`/users/me`} className="botton-descrition">
                         <button className="botton-login">
+                          <BsPerson />
                           {user.user_name}
                         </button>
                         </Link>

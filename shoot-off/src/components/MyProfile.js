@@ -4,6 +4,7 @@ import useInput from "../commons/useInput";
 import { AuthContext } from "../context/GlobalState";
 import { ReqContext } from "../context/RequestState";
 import swal from "sweetalert";
+import { Link } from 'react-router-dom';
 
 const Input = ({state,onChange}) => {
     return (
@@ -146,6 +147,11 @@ const MyProfile = () => {
                 <p className="checkout">Edit</p>
             </button>
         </div>}
+        <div className="mb-3">
+            <Link to={`history`} className="btn btn-dark  ">
+                <p className="checkout">Previous orders</p>
+            </Link>
+        </div>
       </div>
     </>
   );

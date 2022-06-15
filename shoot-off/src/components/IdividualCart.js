@@ -12,6 +12,7 @@ export const IndividualCart = ({i, handleRemove}) => {
 
   const handleChange = (e) => {
     if(e.target.value <= 0) setQuantity(1)
+    else if(e.target.value >= cartProducts[i].stock) setQuantity(cartProducts[i].stock)
     else setQuantity(e.target.value)
   }
 
@@ -50,7 +51,7 @@ return (
         <span className="order-product-price">${cartProducts[i].price}</span>
       </td>
       <td className="text-right pr-5 pr-md-3">
-        <span className="order-product-subtotal">${cartProducts[i].price * quantity}</span>
+        <span className="order-product-subtotal">${Math.floor(cartProducts[i].price * quantity * 100) / 100}</span>
       </td>
       <th>
           <button className="remove-btn" onClick={() => handleRemove(cartProducts[i].id)}>
