@@ -88,6 +88,7 @@ export const SingleProduct = () => {
   // 
   const handleQuantityChange = (e) => {
     if(e.target.value <= 0) setQuantity(1)
+    else if(e.target.value >= product.stock) setQuantity(product.stock)
     else setQuantity(e.target.value)
   }
   
