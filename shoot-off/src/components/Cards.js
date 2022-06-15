@@ -49,6 +49,7 @@ export const Cards = () => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProduct = products.slice(indexOfFirstProduct, indexOfLastProduct)
 
+
   return (
     <>
       <div className="container justify-content-center">

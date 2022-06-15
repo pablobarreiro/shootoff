@@ -42,6 +42,7 @@ const Navbar = () => {
    e.preventDefault()
    busqueda.state.length ? navegate(`/search/${busqueda.state}`) : navegate(`/`)
   }
+
   
   return (
     <>
@@ -106,9 +107,11 @@ const Navbar = () => {
                     
                   </div>
                 </li>
+                
                 <li className="nav-item">
                   <ModalWindow/>
                 </li>
+
                 <div className="navbar-icons-2">
                   <li className="nav-item">
                     {/* {carrito-botton} */}
