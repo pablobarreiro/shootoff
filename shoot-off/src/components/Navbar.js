@@ -13,21 +13,16 @@ const Navbar = () => {
   const [dropdowCollapsed, setdropdowCollapsed] = useState(false);
   const [categories, setcategories ]= useState([])
   const handleNavCollapsed = () => setNavCollapsed(!navCollapsed);
-  const dropdownMenu = () => setdropdowCollapsed(!dropdowCollapsed);
+  const dropdownMenu = () =>{
+    setdropdowCollapsed(!dropdowCollapsed);
+     axios.post("/api/product/categories/").then((res)=>res.data).then((ArrCategories)=>{
+ setcategories(ArrCategories)
+  })
+  } 
 
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
 
-  //pedido axios para mostrar el listado de las categorias 
-useEffect(()=>{
-  axios.post("/api/product/categories").then((res)=>res.data).then((ArrCategories)=>{
-    setcategories(ArrCategories)
-  })
-},[])
- 
-
-
-  
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
       toggleAuth(null);
@@ -45,11 +40,8 @@ useEffect(()=>{
 
   const navbarSearch = (e) => {
    e.preventDefault()
-   axios.get(`/api/product/search/${busqueda.state}`)
-   .then(res => res.data)
-   .then(searchValues => {
-   })
- }
+   busqueda.state.length ? navegate(`/search/${busqueda.state}`) : navegate(`/`)
+  }
   
   return (
     <>
@@ -93,7 +85,7 @@ useEffect(()=>{
                   >
                     Categories
                   </div>
-                  <div
+                  <div 
                     className={`dropdown-menu ${
                       dropdowCollapsed ? "show" : ""
                     }`}
@@ -129,16 +121,18 @@ useEffect(()=>{
                   <li className="nav-item">
                     {/* {logging-botton} */}
                     {user ? (
-                      < div className="navbar-icons-2">
+                    
+                    < div className="navbar-icons-2">
                         <button className="botton-login" onClick={logOut}>
                           <div className="botton-login">log-Out</div>
                         </button>
-                        <Link to={`/users/${user.user_name}`} className="botton-descrition">
+                        <Link to={`/users/me`} className="botton-descrition">
                         <button className="botton-login">
+                          <BsPerson />
                           {user.user_name}
                         </button>
                         </Link>
-                      </div>
+                      </div>     
                     ) : (
                       <Link to={"/login"}>
                         <button className="botton-login">
@@ -146,6 +140,8 @@ useEffect(()=>{
                           <div className="botton-descrition">sign in</div>
                         </button>
                       </Link>
+                   
+                      
                     )}
                   </li>
                 </div>

@@ -87,6 +87,7 @@ export const SingleProduct = () => {
   // 
   const handleQuantityChange = (e) => {
     if(e.target.value <= 0) setQuantity(1)
+    else if(e.target.value >= product.stock) setQuantity(product.stock)
     else setQuantity(e.target.value)
   }
   
@@ -155,11 +156,12 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-          <div >
+
+          <div className="col">
             <h4>comentarios </h4>
             <hr></hr>
           </div>
-          <div >
+          <div className="container">
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
           </div>
           <form>
