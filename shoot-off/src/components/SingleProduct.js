@@ -30,8 +30,6 @@ export const SingleProduct = () => {
     
    const {postCartProduct} = useContext(ReqContext)
 
-    
-
   useEffect(() => {
     axios
       .get(`/api/product/${productId}`)
