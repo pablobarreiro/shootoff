@@ -12,15 +12,21 @@ const Navbar = () => {
   const [dropdowCollapsed, setdropdowCollapsed] = useState(false);
   const [categories, setcategories ]= useState([])
   const handleNavCollapsed = () => setNavCollapsed(!navCollapsed);
-  const dropdownMenu = () => setdropdowCollapsed(!dropdowCollapsed);
+  const dropdownMenu = () =>{
+    setdropdowCollapsed(!dropdowCollapsed);
+     axios.post("/api/product/categories/").then((res)=>res.data).then((ArrCategories)=>{
+ setcategories(ArrCategories)
+  })
+  } 
 
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
 
   //pedido axios para mostrar el listado de las categorias 
-  axios.post("/api/product/categories/").then((res)=>res.data).then((ArrCategories)=>{
-    setcategories(ArrCategories)
-  })
+
+  
+  
+
 
 
   
@@ -89,7 +95,7 @@ const Navbar = () => {
                   >
                     Categories
                   </div>
-                  <div
+                  <div 
                     className={`dropdown-menu ${
                       dropdowCollapsed ? "show" : ""
                     }`}
@@ -122,7 +128,8 @@ const Navbar = () => {
                   <li className="nav-item">
                     {/* {logging-botton} */}
                     {user ? (
-                      < div className="navbar-icons-2">
+                    
+                    < div className="navbar-icons-2">
                         <button className="botton-login" onClick={logOut}>
                           <div className="botton-login">log-Out</div>
                         </button>
@@ -131,14 +138,18 @@ const Navbar = () => {
                           {user.user_name}
                         </button>
                         </Link>
-                      </>
-                    ) : (
-                      <Link to={"/login"}>
+                      </div>
+
+            
+                     
+                    ) : (<Link to={"/login"}>
                         <button className="botton-login">
                           <BsPerson />
                           <div className="botton-descrition">sign in</div>
                         </button>
                       </Link>
+                   
+                      
                     )}
                   </li>
                 </div>
