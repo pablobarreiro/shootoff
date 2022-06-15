@@ -1,6 +1,6 @@
 import "../styles/checkout.css";
 import useInput from "../commons/useInput";
-import { useContext, useState, useEffect} from "react";
+import React ,{ useContext, useState, useEffect} from "react";
 import { AuthContext } from "../context/GlobalState";
 import { ReqContext } from "../context/RequestState";
 import { useNavigate } from "react-router-dom";

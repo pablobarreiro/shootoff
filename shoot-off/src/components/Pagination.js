@@ -1,5 +1,5 @@
 import "../styles/cards.css"
-
+import React from "react"
 const Pagination = ({ totalProducts, productsPerPage, paginate }) => {
 
     const pageNumbers = []
