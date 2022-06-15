@@ -6,8 +6,8 @@ import "../styles/modalWindow.css";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
-export const ModalWindow = () => {
-  const [stateModal, setStateModal] = useState(false);
+export const EditProduct = ({idProduct}) => {
+  const [editedProduct, setEditedProduct] = useState(false);
    const navigate=useNavigate()
     const product_name= useInput("")
     const description= useInput("")
@@ -17,12 +17,12 @@ export const ModalWindow = () => {
     const img_url= useInput("")
 
   const openCloseModal = () => {
-    setStateModal(!stateModal);
+    setEditedProduct(!editedProduct);
   };
 
   const handleModel=(e)=>{
       e.preventDefault();
-      axios.post("/api/product",{
+      axios.put(`/api/product/${idProduct}`,{
         product_name: product_name.state,
         description:description.state,
         price:Number(price.state),
@@ -32,7 +32,7 @@ export const ModalWindow = () => {
       })
       .then(res=>res.data)
       .then(()=>{
-          swal({tittle:"Created", text:"Product created", icon:"success"})
+          swal({tittle:"Edited", text:"Product edited", icon:"success"})
           navigate("/")
       })
   }
@@ -42,13 +42,13 @@ export const ModalWindow = () => {
   return (
     <>
       <Button className="container" onClick={() => openCloseModal()}>
-        Add product
+      Edit product
       </Button>
-      <Modal open={stateModal} onClose={openCloseModal}>
+      <Modal open={editedProduct} onClose={openCloseModal}>
 
         <form className="modal-product" onSubmit={handleModel}>
           <div>
-            <h2>Add product</h2>
+            <h2>Edit product</h2>
           </div>
 
           <TextField label="product_name" className="textField" {...product_name}/>
@@ -64,7 +64,7 @@ export const ModalWindow = () => {
       <TextField label="img_url" className="textField" {...img_url} />
       <br />
           <div>
-            <Button type="submit">Add Product</Button>
+            <Button type="submit">Edit Product</Button>
             <Button onClick={() => openCloseModal()}>close</Button>
           </div>
         </form>
