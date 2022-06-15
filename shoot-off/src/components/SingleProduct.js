@@ -7,6 +7,7 @@ import { ReqContext } from '../context/RequestState'
 import { AuthContext } from '../context/GlobalState'
 import { AiFillStar } from "react-icons/ai";
 import swal from 'sweetalert'
+import { EditProduct } from './EditProduct'
 
 
 
@@ -156,7 +157,7 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-
+          <EditProduct idProduct={productId}/>
           <div className="col">
             <h4>comentarios </h4>
             <hr></hr>
