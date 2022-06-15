@@ -30,7 +30,6 @@ export const SingleProduct = () => {
     
    const {postCartProduct} = useContext(ReqContext)
 
-
   useEffect(() => {
     axios
       .get(`/api/product/${productId}`)
@@ -157,6 +156,7 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
+
           <div className="col">
             <h4>comentarios </h4>
             <hr></hr>

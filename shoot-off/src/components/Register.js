@@ -24,7 +24,7 @@ export const Register = () => {
   const handleSumit = (e) => {
     e.preventDefault();
     axios
-      .post("api/user/register", {
+      .post("api/user/register/", {
         user_name: name.state,
         email: email.state,
         password: password.state,

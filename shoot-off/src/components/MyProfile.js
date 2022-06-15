@@ -1,5 +1,5 @@
 import '../styles/myProfile.css'
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import useInput from "../commons/useInput";
 import { AuthContext } from "../context/GlobalState";
 import { ReqContext } from "../context/RequestState";

@@ -1,0 +1,16 @@
+.modal-product {
+    text-align: center;
+  position: relative;
+  width: 400px;
+  background-color: white;
+  border: 1px solid #000;
+  padding: 16px, 32px, 24px, 24px;
+  margin: 5% auto;
+  border-radius: 5px;
+}
+.textField {
+  width: 100%;
+}
+.container {
+  text-align: center;
+}

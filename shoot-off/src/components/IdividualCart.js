@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { BsFillTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartState";

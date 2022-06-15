@@ -3,8 +3,9 @@ import axios from "axios";
 import useInput from "../commons/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/GlobalState";
+import { ModalWindow } from "./ModalWindow";
 
 const Navbar = () => {
   const navegate = useNavigate();
@@ -21,7 +22,7 @@ const Navbar = () => {
 
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
-  
+
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
       toggleAuth(null);
@@ -104,6 +105,9 @@ const Navbar = () => {
                   })}
                     
                   </div>
+                </li>
+                <li className="nav-item">
+                  <ModalWindow/>
                 </li>
                 <div className="navbar-icons-2">
                   <li className="nav-item">
