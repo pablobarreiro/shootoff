@@ -7,6 +7,7 @@ import { Login } from './components/Login';
 import { Register } from "./components/Register";
 import { Cart } from "./components/Cart"
 import { SingleProduct } from "./components/SingleProduct";
+import {Checkout} from "./components/Checkout"
 import UserAdmin from "./components/UserAdmin";
 import AuthContextProvider from "./context/GlobalState";
 import ReqContextProvider from "./context/RequestState";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/users/admin" element={<UserAdmin />} />
           <Route path="/categories/:item" element={<Cards/>}/>
           <Route path="/users/:username" element={<MyProfile />} />
+          <Route path="/checkout" element={<Checkout />}/>
         </Routes>
         <Footer />
       </AuthContextProvider>

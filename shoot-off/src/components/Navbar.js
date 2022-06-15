@@ -22,14 +22,6 @@ const Navbar = () => {
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
 
-  //pedido axios para mostrar el listado de las categorias 
-
-  
-  
-
-
-
-  
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
       toggleAuth(null);
@@ -50,6 +42,7 @@ const Navbar = () => {
    axios.get(`/api/product/search/${busqueda.state}`)
    .then(res => res.data)
    .then(searchValues => {
+  
    })
  }
   
@@ -116,6 +109,7 @@ const Navbar = () => {
                     
                   </div>
                 </li>
+                
                 <div className="navbar-icons-2">
                   <li className="nav-item">
                     {/* {carrito-botton} */}
@@ -140,7 +134,6 @@ const Navbar = () => {
                         </Link>
                       </div>
 
-            
                      
                     ) : (<Link to={"/login"}>
                         <button className="botton-login">

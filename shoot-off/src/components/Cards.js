@@ -31,7 +31,7 @@ export const Cards = () => {
     }
     
 
-  }, []);
+  }, [location]);
 
   return (
     <div className="container justify-content-center">
