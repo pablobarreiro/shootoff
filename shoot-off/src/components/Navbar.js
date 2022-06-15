@@ -3,30 +3,30 @@ import axios from "axios";
 import useInput from "../commons/useInput";
 import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import React,{ useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/GlobalState";
+import { ModalWindow } from "./ModalWindow";
 
 const Navbar = () => {
   const navegate = useNavigate();
   const [navCollapsed, setNavCollapsed] = useState(true);
   const [dropdowCollapsed, setdropdowCollapsed] = useState(false);
+  const [categories, setcategories ]= useState([])
   const handleNavCollapsed = () => setNavCollapsed(!navCollapsed);
   const dropdownMenu = () => setdropdowCollapsed(!dropdowCollapsed);
 
   const { user, toggleAuth } = useContext(AuthContext);
   const busqueda = useInput("");
 
-  const fakeData = [
-    "Featured",
-    "Bowns",
-    "Bow Accessories",
-    "Arrows",
-    "Shooting Accessories",
-    "Targets",
-    "Tools",
-    "Training",
-    "Hunting",
-  ];
+  //pedido axios para mostrar el listado de las categorias 
+useEffect(()=>{
+  axios.post("/api/product/categories").then((res)=>res.data).then((ArrCategories)=>{
+    setcategories(ArrCategories)
+  })
+},[])
+ 
+
+
   
   const logOut = () => {
     axios.post("api/user/logout").then(() => {
@@ -97,11 +97,25 @@ const Navbar = () => {
                     className={`dropdown-menu ${
                       dropdowCollapsed ? "show" : ""
                     }`}
-                  >
-                    <div className="dropdown-item">
-                    aca tiene que ir las categorias 
+                  >{categories.map((item,id)=>{
+                    //se necesitaria hacer el map al pedido axios de las categorias 
+                    return(
+                      <div onClick={dropdownMenu}  key={id}>
+                      <Link to={`/categories/${item}`}>
+                        <div  className="dropdown-item">
+                  {item} 
                     </div>
+                      </Link>
+                      </div>
+                      
+                    )
+                   
+                  })}
+                    
                   </div>
+                </li>
+                <li className="nav-item">
+                  <ModalWindow/>
                 </li>
                 <div className="navbar-icons-2">
                   <li className="nav-item">
@@ -115,14 +129,16 @@ const Navbar = () => {
                   <li className="nav-item">
                     {/* {logging-botton} */}
                     {user ? (
-                      <>
+                      < div className="navbar-icons-2">
                         <button className="botton-login" onClick={logOut}>
-                          <div className="botton-descrition">log-Out</div>
+                          <div className="botton-login">log-Out</div>
                         </button>
-                        <div className="botton-descrition">
+                        <Link to={`/users/${user.user_name}`} className="botton-descrition">
+                        <button className="botton-login">
                           {user.user_name}
-                        </div>
-                      </>
+                        </button>
+                        </Link>
+                      </div>
                     ) : (
                       <Link to={"/login"}>
                         <button className="botton-login">

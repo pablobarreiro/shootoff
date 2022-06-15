@@ -11,6 +11,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 30px 0;
+    margin-top: 8%;
 }
 
 .details .big-img {

@@ -1,3 +1,4 @@
+import React from "react"
 import { BsFacebook, BsInstagram, BsLinkedin } from "react-icons/bs";
 import "../styles/footer.css";
 const Footer = () => {

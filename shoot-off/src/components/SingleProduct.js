@@ -4,8 +4,9 @@ import "../styles/singleProduct.css"
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ReqContext } from '../context/RequestState'
-import { AiFillStar } from "react-icons/ai";
 import { AuthContext } from '../context/GlobalState'
+import { AiFillStar } from "react-icons/ai";
+import swal from 'sweetalert'
 
 
 
@@ -28,6 +29,7 @@ export const SingleProduct = () => {
    const {user, isAuthenticated} = useContext(AuthContext)
     
    const {postCartProduct} = useContext(ReqContext)
+
     
 
   useEffect(() => {
@@ -84,16 +86,20 @@ export const SingleProduct = () => {
     axios.put(`/api/product/${productId}`, { coments: coments })
   };
 
+  // 
+  const handleQuantityChange = (e) => {
+    if(e.target.value <= 0) setQuantity(1)
+    else setQuantity(e.target.value)
+  }
+  
+  // agregar al carrito
+  const handleAddToCartClick = () => {
+    postCartProduct({user_id:user.id,quantity,...product,product_id:product.id})
+    .then(()=>{
+      swal({ title: "Added to cart", icon: "success" })
+    })
+  }
 
-   const handleQuantityChange = (e) => {
-        if(e.target.value <= 0) setQuantity(1)
-        else setQuantity(e.target.value)
-    }
-
-    const handleAddToCartClick = () => {
-        postCartProduct(user.id,product)
-    }
-    console.log(coments)
 
     return (
         <>
@@ -151,11 +157,11 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-          <div class="col">
+          <div >
             <h4>comentarios </h4>
             <hr></hr>
           </div>
-          <div class="container">
+          <div >
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
           </div>
           <form>
