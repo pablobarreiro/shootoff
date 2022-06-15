@@ -157,11 +157,11 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-          <div class="col">
+          <div className="col">
             <h4>comentarios </h4>
             <hr></hr>
           </div>
-          <div class="container">
+          <div className="container">
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
           </div>
           <form>
