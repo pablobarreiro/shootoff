@@ -166,8 +166,7 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-            
-            {user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>}
+            {isAuthenticated && (user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>)}
           <div className="col">
             <h4>comentarios </h4>
             <hr></hr>

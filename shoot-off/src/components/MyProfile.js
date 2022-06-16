@@ -155,6 +155,7 @@ const MyProfile = () => {
                 <p className="checkout">Previous orders</p>
             </Link>
         </div>
+        {user.admin || user.employee ? <div className="card-header">Role Options</div> : <></>}
         <div className="mb-3">
             {user.admin ? <Link to={"/users/admin"} className="btn btn-dark"> 
                     <p className="checkout">User list</p>
