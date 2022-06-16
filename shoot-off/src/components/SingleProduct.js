@@ -8,6 +8,8 @@ import { AuthContext } from '../context/GlobalState'
 import { AiFillStar } from "react-icons/ai";
 import swal from 'sweetalert'
 import { EditProduct } from './EditProduct'
+import { Button } from '@mui/material'
+import { DeleteProduct } from './DeleteProduct'
 
 
 
@@ -171,7 +173,9 @@ export const SingleProduct = () => {
                 })}
           </div>
             {isAuthenticated && (user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>)}
+            {isAuthenticated && (user.admin || user.employee ? <DeleteProduct idProduct={productId}/>: <></>)}
           <div className="col">
+
             <h4>comentarios </h4>
             <hr></hr>
           </div>
