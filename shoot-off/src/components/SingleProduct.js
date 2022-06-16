@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import "../styles/singleProduct.css"
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ReqContext } from '../context/RequestState'
 import { AuthContext } from '../context/GlobalState'
@@ -30,6 +30,8 @@ export const SingleProduct = () => {
    const {user, isAuthenticated} = useContext(AuthContext)
     
    const {postCartProduct} = useContext(ReqContext)
+
+   const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -103,10 +105,12 @@ export const SingleProduct = () => {
   
   // agregar al carrito
   const handleAddToCartClick = () => {
-    postCartProduct({user_id:user.id,quantity,...product,product_id:product.id})
+    if(isAuthenticated) {
+      postCartProduct({user_id:user.id,quantity,...product,product_id:product.id})
     .then(()=>{
       swal({ title: "Added to cart", icon: "success" })
-    })
+    })}
+    else navigate('/login')
   }
 
 
@@ -120,7 +124,7 @@ export const SingleProduct = () => {
                 <div className='box'>
                     <div className='row'>
                         <h2>{product.product_name}</h2>
-                        <span>$ {product.price}</span>
+                        <span>$ {Math.floor(product.price*100)/100}</span>
                     </div>
                     <p>{product.description}</p>
                     <div className='flex'>
@@ -177,10 +181,10 @@ export const SingleProduct = () => {
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
          
             </div >
-          <form>
+          {isAuthenticated && <form>
               <input onChange={handleChange} value={coment}  className="form-control"/>
               <button onClick={addComent} className="btn btn-dark btn-sumit">Agregar comentario</button>
-            </form>
+            </form>}
         </div>
       </div>
     </>

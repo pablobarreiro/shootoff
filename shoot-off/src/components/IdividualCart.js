@@ -48,7 +48,7 @@ return (
           />
       </td>
       <td className="d-none d-md-table-cell text-right">
-        <span className="order-product-price">${cartProducts[i].price}</span>
+        <span className="order-product-price">${Math.floor(cartProducts[i].price * 100) / 100}</span>
       </td>
       <td className="text-right pr-5 pr-md-3">
         <span className="order-product-subtotal">${Math.floor(cartProducts[i].price * quantity * 100) / 100}</span>

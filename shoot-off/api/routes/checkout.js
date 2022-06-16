@@ -67,7 +67,6 @@ checkoutRouter.put('/reject/:order_number',(req,res) => { // enviar order_number
 // HISTORIAL DE PEDIDOS DE UN USUARIO
 checkoutRouter.get('/sales/:id',(req,res) => { // enviar id por params
     const id = req.params.id
-    console.log("TYPEOF ID",typeof id)
     Sales.findAll({where:{ user_id:id },include:{model: Products}})
     .then(sales => {
         const returnObj = sales.map( e => {
