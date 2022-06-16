@@ -22,7 +22,7 @@ const Input = ({ state, onChange }) => {
 export const Checkout = () => {
   const navigate = useNavigate();
   const { user, toggleAuth } = useContext(AuthContext);
-  const { editUser } = useContext(ReqContext);
+  const { editUser, checkoutCart } = useContext(ReqContext);
   const [editable, setEditable] = useState(false);
   const[ total, setTotal] =useState("")
   const username = useInput(user.user_name);
@@ -58,10 +58,11 @@ export const Checkout = () => {
     };
     editUser(user.id, editedUser)
       .then((data) => data.user)
-      .then((user) => {
+      .then((newUser) => {
         toggleAuth(null);
-        toggleAuth(user);
+        toggleAuth(newUser);
         setEditable(false);
+        checkoutCart(user.id)
         swal({ title: "successful registered purchase", icon: "success" });
         navigate("/");
       });

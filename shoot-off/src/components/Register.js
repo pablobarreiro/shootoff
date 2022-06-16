@@ -34,6 +34,8 @@ export const Register = () => {
         city: city.state,
         postal_code: Number(postalCode.state),
         country: country.state,
+        admin:false,
+        employee:false
       })
       .then((res) => res.data)
       .then((regUser) => {

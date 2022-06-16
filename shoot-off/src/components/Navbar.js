@@ -24,7 +24,7 @@ const Navbar = () => {
   const busqueda = useInput("");
 
   const logOut = () => {
-    axios.post("api/user/logout").then(() => {
+    axios.post("/api/user/logout").then(() => {
       toggleAuth(null);
       navegate("/");
     });
