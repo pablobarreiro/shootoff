@@ -172,11 +172,14 @@ export const SingleProduct = () => {
             <hr></hr>
           </div>
           <div className="container">
+          
+
           {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
-          </div>
+         
+            </div >
           <form>
-              <input onChange={handleChange} value={coment} />
-              <button onClick={addComent}>Agregar comentario</button>
+              <input onChange={handleChange} value={coment}  className="form-control"/>
+              <button onClick={addComent} className="btn btn-dark btn-sumit">Agregar comentario</button>
             </form>
         </div>
       </div>
