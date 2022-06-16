@@ -80,9 +80,18 @@ export const SingleProduct = () => {
     e.preventDefault();
     const comentsArray = coments;
     if(isAuthenticated)
-    comentsArray.push([user.user_name]+":"+coment);
+    comentsArray.push([user.user_name]+": "+coment);
     setComents(comentsArray);
     axios.put(`/api/product/${productId}`, { coments: coments })
+    .then(()=>{
+      axios
+      .get(`/api/product/${productId}`)
+      .then((res) => res.data)
+      .then((singleProduct) => {
+        setProduct(singleProduct);
+        setComents(singleProduct.coments);
+      });
+    })
   };
 
   // 
