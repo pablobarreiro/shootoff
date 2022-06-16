@@ -5,7 +5,7 @@ import { AuthContext } from "../context/GlobalState";
 import { ReqContext } from "../context/RequestState";
 import swal from "sweetalert";
 import { Link } from 'react-router-dom';
-
+import { ModalWindow } from "./ModalWindow";
 
 const Input = ({state,onChange}) => {
     return (
@@ -148,17 +148,21 @@ const MyProfile = () => {
                 <p className="checkout">Edit</p>
             </button>
         </div>}
-
-            <div className="mb-3">
-                {user.admin ? <Link to={"/users/admin"} className="btn btn-dark  "> 
-                    <p className="checkout">User list</p>
-                </Link> : <></>}
-            </div>
+         
 
         <div className="mb-3">
             <Link to={`history`} className="btn btn-dark  ">
                 <p className="checkout">Previous orders</p>
             </Link>
+        </div>
+        <div className="mb-3">
+            {user.admin ? <Link to={"/users/admin"} className="btn btn-dark"> 
+                    <p className="checkout">User list</p>
+            </Link> : <></>}
+        </div>
+        
+        <div className="mb-3">
+            {user.admin || user.employee ? <ModalWindow/> : <></>}
         </div>
 
       </div>

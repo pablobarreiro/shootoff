@@ -41,6 +41,7 @@ export const EditProduct = ({idProduct}) => {
 
   return (
     <>
+      
       <Button className="container" onClick={() => openCloseModal()}>
       Edit product
       </Button>

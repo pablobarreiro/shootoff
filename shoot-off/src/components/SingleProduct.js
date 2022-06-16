@@ -157,7 +157,8 @@ export const SingleProduct = () => {
               );
                 })}
           </div>
-          <EditProduct idProduct={productId}/>
+            
+            {user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>}
           <div className="col">
             <h4>comentarios </h4>
             <hr></hr>

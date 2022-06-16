@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BsCartFill, BsPerson } from "react-icons/bs";
 import React,{ useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/GlobalState";
-import { ModalWindow } from "./ModalWindow";
+
 
 const Navbar = () => {
   const navegate = useNavigate();
@@ -99,7 +99,7 @@ const Navbar = () => {
                   {item} 
                     </div>
                       </Link>
-                      </div>
+                    </div>
                       
                     )
                    
@@ -107,11 +107,6 @@ const Navbar = () => {
                     
                   </div>
                 </li>
-                
-                <li className="nav-item">
-                  <ModalWindow/>
-                </li>
-
                 <div className="navbar-icons-2">
                   <li className="nav-item">
                     {/* {carrito-botton} */}
