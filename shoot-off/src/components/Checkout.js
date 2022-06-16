@@ -84,7 +84,7 @@ export const Checkout = () => {
                   <div>
                     <h6 className="my-0">{e.product_name}</h6>
                   </div>
-                  <span className="text-muted">{e.price*e.quantity}</span>
+                  <span className="text-muted">{Math.floor(e.price*e.quantity*100)/100}</span>
                 </li>
               </>
             ))}
