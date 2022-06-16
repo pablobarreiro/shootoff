@@ -4,25 +4,26 @@ import { UserTable } from "./UserTable";
 import "../styles/UserAdmin.css";
 import { AuthContext } from "../context/GlobalState";
 import { Link } from "react-router-dom";
-import { ReqContext } from "../context/RequestState";
 
 const UserAdmin = () => {
   const { user, isAuthenticated } = useContext(AuthContext)
-  const { getAllUsers, promoteOneUser, deleteOneUser } = useContext(ReqContext)
 
   const [contacts, setContacts] = useState([]);
   //users      //setUsers
   useEffect(() => {
-    getAllUsers(user.id)
-    .then((users) => setContacts(users));
+    axios
+      .get(`/api/user/admin/1/users`)
+      .then((res) => res.data)
+      .then((users) => setContacts(users));
   }, []);
 
   const handleChangeClick = (e, contact) => {
     e.preventDefault();
-    promoteOneUser(user.id,contact.id)
-    .then(() => {
-      getAllUsers(user.id)
-      .then((users) => setContacts(users));
+    axios.put(`/api/user/admin/1/changeRol/${contact.id}`).then(() => {
+      axios
+        .get("/api/user/admin/1/users")
+        .then((res) => res.data)
+        .then((users) => setContacts(users));
     });
   };
 
@@ -34,7 +35,7 @@ const UserAdmin = () => {
     newContacts.splice(index, 1);
 
     setContacts(newContacts);
-    deleteOneUser(user.id,contactId)
+    axios.delete(`/api/user/admin/1/deleteUser/${contactId}`)
 
   };
   if (isAuthenticated && user.admin) {
