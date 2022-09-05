@@ -44,7 +44,7 @@ export const Card = ({ props }) => {
                 })}
               </h5>
                     <h5 className="card-title">{props.product_name}</h5>
-                    <h5>${props.price}</h5>
+                    <h5>${Math.floor(props.price * 100) / 100}</h5>
                 </div>
             </div>
         </div>

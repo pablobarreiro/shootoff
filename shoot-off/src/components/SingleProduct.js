@@ -1,13 +1,15 @@
 import axios from 'axios'
 import React, { useContext } from 'react'
 import "../styles/singleProduct.css"
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { ReqContext } from '../context/RequestState'
 import { AuthContext } from '../context/GlobalState'
 import { AiFillStar } from "react-icons/ai";
 import swal from 'sweetalert'
 import { EditProduct } from './EditProduct'
+import { Button } from '@mui/material'
+import { DeleteProduct } from './DeleteProduct'
 
 
 
@@ -30,6 +32,8 @@ export const SingleProduct = () => {
   const { user, isAuthenticated } = useContext(AuthContext)
 
   const { postCartProduct } = useContext(ReqContext)
+
+   const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -103,36 +107,40 @@ export const SingleProduct = () => {
 
   // agregar al carrito
   const handleAddToCartClick = () => {
-    postCartProduct({ user_id: user.id, quantity, ...product, product_id: product.id })
-      .then(() => {
-        swal({ title: "Added to cart", icon: "success" })
-      })
+
+    if(isAuthenticated) {
+      postCartProduct({user_id:user.id,quantity,...product,product_id:product.id})
+    .then(()=>{
+      swal({ title: "Added to cart", icon: "success" })
+    })}
+    else navigate('/login')
   }
 
 
-  return (
-    <>
-      <div className='details'>
-        <div className='big-img'>
-          {/* HABRIA QUE INCLUIR DENTRO DEL MODELO DE PRODUCTOS UN KEY DE IMG */}
-          <img src={product.img_url} alt="" />
-        </div>
-        <div className='box'>
-          <div className='row'>
-            <h2>{product.product_name}</h2>
-            <span>$ {product.price}</span>
-          </div>
-          <p>{product.description}</p>
-          <div className='flex'>
-            <input
-              type='number'
-              className="form-control edit-value"
-              value={quantity}
-              onChange={handleQuantityChange}
-            />
-            <button className='cart' onClick={handleAddToCartClick}>add to cart</button>
-            {/* <input type="number" min="0" value="1" /> */}
-          </div>
+    return (
+        <>
+            <div className='details'>
+                <div className='big-img'>
+                    {/* HABRIA QUE INCLUIR DENTRO DEL MODELO DE PRODUCTOS UN KEY DE IMG */}
+                    <img src={product.img_url} alt=""/>
+                </div>
+                <div className='box'>
+                    <div className='row'>
+                        <h2>{product.product_name}</h2>
+                        <span>$ {Math.floor(product.price*100)/100}</span>
+                    </div>
+                    <p>{product.description}</p>
+                    <div className='flex'>
+                        <input 
+                        type='number'
+                        className="form-control edit-value" 
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        />
+                        <button className='cart' onClick={handleAddToCartClick}>add to cart</button>
+                        {/* <input type="number" min="0" value="1" /> */}
+                    </div>
+
           <span>Reviews</span>
           <div className="btnContainer">
             {starValue === 0 ? star.map((_, index) => {
@@ -166,14 +174,25 @@ export const SingleProduct = () => {
                 );
               })}
           </div>
-          {isAuthenticated && (user.admin || user.employee ? <EditProduct idProduct={productId} /> : <></>)}
+
+            {isAuthenticated && (user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>)}
+            {isAuthenticated && (user.admin || user.employee ? <DeleteProduct idProduct={productId}/>: <></>)}
           <div className="col">
+
+            <h4>comentarios </h4>
             <hr></hr>
           </div>
-          <form>
-            <input onChange={handleChange} value={coment} className="form-control" />
-            <button onClick={addComent} className="btn btn-dark btn-sumit">Agregar comentario</button>
-          </form>
+          <div className="container">
+          
+
+          {product.coments&&product.coments.map((coment)=>{return <div>{coment}</div>})}
+         
+            </div >
+          {isAuthenticated && <form>
+              <input onChange={handleChange} value={coment}  className="form-control"/>
+              <button onClick={addComent} className="btn btn-dark btn-sumit">Agregar comentario</button>
+            </form>}
+
         </div>
       </div>
       <h3>Comentarios </h3>
