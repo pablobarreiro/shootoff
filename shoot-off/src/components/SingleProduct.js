@@ -26,12 +26,12 @@ export const SingleProduct = () => {
   const [starValue, setStarValue] = useState(0);
 
   const [hoverValue, setHoverValue] = useState(undefined);
-  
-   const [quantity,setQuantity] = useState(1)
-   
-   const {user, isAuthenticated} = useContext(AuthContext)
-    
-   const {postCartProduct} = useContext(ReqContext)
+
+  const [quantity, setQuantity] = useState(1)
+
+  const { user, isAuthenticated } = useContext(AuthContext)
+
+  const { postCartProduct } = useContext(ReqContext)
 
    const navigate = useNavigate()
 
@@ -67,11 +67,11 @@ export const SingleProduct = () => {
       .get(`/api/product/${productId}`)
       .then((res) => res.data)
       .then((product) => {
-        if(isAuthenticated)
-        axios.put(`/api/product/${productId}`, {
-          vote: product.vote + starValue,
-          vote_count: product.vote_count + 1,
-        });
+        if (isAuthenticated)
+          axios.put(`/api/product/${productId}`, {
+            vote: product.vote + starValue,
+            vote_count: product.vote_count + 1,
+          });
       });
   }, [starValue]);
 
@@ -83,30 +83,31 @@ export const SingleProduct = () => {
   const addComent = function (e) {
     e.preventDefault();
     const comentsArray = coments;
-    if(isAuthenticated)
-    comentsArray.push([user.user_name]+": "+coment);
+    if (isAuthenticated)
+      comentsArray.push([user.user_name] + ": " + coment);
     setComents(comentsArray);
     axios.put(`/api/product/${productId}`, { coments: coments })
-    .then(()=>{
-      axios
-      .get(`/api/product/${productId}`)
-      .then((res) => res.data)
-      .then((singleProduct) => {
-        setProduct(singleProduct);
-        setComents(singleProduct.coments);
-      });
-    })
+      .then(() => {
+        axios
+          .get(`/api/product/${productId}`)
+          .then((res) => res.data)
+          .then((singleProduct) => {
+            setProduct(singleProduct);
+            setComents(singleProduct.coments);
+          });
+      })
   };
 
   // 
   const handleQuantityChange = (e) => {
-    if(e.target.value <= 0) setQuantity(1)
-    else if(e.target.value >= product.stock) setQuantity(product.stock)
+    if (e.target.value <= 0) setQuantity(1)
+    else if (e.target.value >= product.stock) setQuantity(product.stock)
     else setQuantity(e.target.value)
   }
-  
+
   // agregar al carrito
   const handleAddToCartClick = () => {
+
     if(isAuthenticated) {
       postCartProduct({user_id:user.id,quantity,...product,product_id:product.id})
     .then(()=>{
@@ -139,9 +140,10 @@ export const SingleProduct = () => {
                         <button className='cart' onClick={handleAddToCartClick}>add to cart</button>
                         {/* <input type="number" min="0" value="1" /> */}
                     </div>
+
           <span>Reviews</span>
           <div className="btnContainer">
-            {starValue===0?star.map((_, index) => {
+            {starValue === 0 ? star.map((_, index) => {
               return (
                 <AiFillStar
                   className="star"
@@ -157,21 +159,22 @@ export const SingleProduct = () => {
                   key={index}
                 />
               );
-                }):
-            star.map((_, index) => {
-              return (
-                <AiFillStar
-                  className="star"
-                  size={24}
-                  color={
-                    (hoverValue || starValue) > index
-                      ? colors.orange
-                      : colors.grey
-                  }
-                />
-              );
-                })}
+            }) :
+              star.map((_, index) => {
+                return (
+                  <AiFillStar
+                    className="star"
+                    size={24}
+                    color={
+                      (hoverValue || starValue) > index
+                        ? colors.orange
+                        : colors.grey
+                    }
+                  />
+                );
+              })}
           </div>
+
             {isAuthenticated && (user.admin || user.employee ? <EditProduct idProduct={productId}/> : <></>)}
             {isAuthenticated && (user.admin || user.employee ? <DeleteProduct idProduct={productId}/>: <></>)}
           <div className="col">
@@ -189,8 +192,22 @@ export const SingleProduct = () => {
               <input onChange={handleChange} value={coment}  className="form-control"/>
               <button onClick={addComent} className="btn btn-dark btn-sumit">Agregar comentario</button>
             </form>}
+
         </div>
       </div>
+      <h3>Comentarios </h3>
+      <div className="card-deck">
+        {product.coments && product.coments.map((coment) => {
+          return (
+            <div className="card m-3">
+              <div className="card-body ">
+                <h5 className="card-title">{coment.split(":")[0]}</h5>
+                <p className="card-text text-muted">{coment.split(":")[1]}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div >
     </>
   );
 };

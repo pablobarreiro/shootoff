@@ -65,3 +65,6 @@
 .botton-descrition{
 font-size: 15px;
 }
+.navbar-expand-lg .navbar-nav .dropdown-menu a{
+    text-decoration: none;
+}
